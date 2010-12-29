@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:Application xmlns:fx="http://ns.adobe.com/mxml/2009" 
+			   xmlns:s="library://ns.adobe.com/flex/spark" 
+			   xmlns:mx="library://ns.adobe.com/flex/mx" minWidth="1024" minHeight="768">
+
+	<fx:Script>
+		<![CDATA[
+			import mx.managers.PopUpManager;
+			import mx.modules.ModuleLoader;
+			import mx.modules.ModuleManager;
+			
+			import views.DBSelector;
+			protected function linkbutton1_clickHandler(event:MouseEvent):void
+			{
+				var pnDb:DBSelector = null;
+				pnDb = PopUpManager.createPopUp(this, views.DBSelector,true) as DBSelector;
+				PopUpManager.centerPopUp(pnDb);
+			}
+		]]>
+	</fx:Script>
+
+	<fx:Declarations>
+		<!-- Place non-visual elements (e.g., services, value objects) here -->
+	</fx:Declarations>
+	<mx:Image x="10" y="10" width="150" height="79" source="img/logo_interface.png"/>
+	<mx:LinkButton x="168" y="67" label="InterDb" width="62" height="22" color="#FF8A01" click="linkbutton1_clickHandler(event)"/>
+	
+	
+	
+</s:Application>

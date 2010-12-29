@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<actionScriptProperties mainApplicationPath="Integrator.mxml" projectUUID="478b2114-c84b-4b49-a22b-fe3d3137d875" version="6">
+  <compiler additionalCompilerArguments="-services &quot;D:\eclipsehelios\workspace\Intergrator\WebContent\WEB-INF\flex\services-config.xml&quot; -locale en_US" autoRSLOrdering="true" copyDependentFiles="true" fteInMXComponents="false" generateAccessible="true" htmlExpressInstall="true" htmlGenerate="true" htmlHistoryManagement="true" htmlPlayerVersionCheck="true" includeNetmonSwc="false" outputFolderLocation="D:/eclipsehelios/workspace/Intergrator/WebContent/" outputFolderPath="bin-debug" rootURL="" sourceFolderPath="src" strict="true" targetPlayerVersion="0.0.0" useApolloConfig="false" useDebugRSLSwfs="true" verifyDigests="true" warn="true">
+    <compilerSourcePath/>
+    <libraryPath defaultLinkType="0">
+      <libraryPathEntry kind="4" path="">
+        <excludedEntries>
+          <libraryPathEntry kind="3" linkType="1" path="${PROJECT_FRAMEWORKS}/libs/flex.swc" useDefaultLinkType="false"/>
+        </excludedEntries>
+      </libraryPathEntry>
+      <libraryPathEntry kind="1" linkType="1" path="libs"/>
+      <libraryPathEntry kind="3" linkType="1" path="D:/eclipsehelios/workspace/Intergrator/WebContent/WEB-INF/flex/libs/fds.swc" useDefaultLinkType="false"/>
+      <libraryPathEntry kind="3" linkType="1" path="D:/eclipsehelios/workspace/Intergrator/WebContent/WEB-INF/flex/libs/player/playerfds.swc" useDefaultLinkType="false"/>
+      <libraryPathEntry kind="1" linkType="1" path="D:/eclipsehelios/workspace/Intergrator/WebContent/WEB-INF/flex/locale/{locale}"/>
+    </libraryPath>
+    <sourceAttachmentPath/>
+  </compiler>
+  <applications>
+    <application path="Integrator.mxml"/>
+  </applications>
+  <modules>
+    <module application="src/Integrator.mxml" destPath="views/DBSelector.swf" optimize="true" sourcePath="src/views/DBSelector.mxml"/>
+  </modules>
+  <buildCSSFiles/>
+</actionScriptProperties>

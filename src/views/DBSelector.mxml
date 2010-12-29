@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:Module xmlns:fx="http://ns.adobe.com/mxml/2009" 
+		   xmlns:s="library://ns.adobe.com/flex/spark" 
+		   xmlns:mx="library://ns.adobe.com/flex/mx" layout="absolute" width="900" height="600">
+
+	<fx:Script>
+		<![CDATA[
+			import mx.managers.PopUpManager;
+			import mx.modules.ModuleLoader;
+			protected function linkbutton1_clickHandler(event:MouseEvent):void
+			{
+				var ml:ModuleLoader = new ModuleLoader();
+				ml.unloadModule();
+				PopUpManager.removePopUp(this);
+			}
+		]]>
+	</fx:Script>
+
+	<fx:Declarations>
+		<!-- Place non-visual elements (e.g., services, value objects) here -->
+	</fx:Declarations>
+	<s:Panel x="18" y="41" width="400" height="550" title="Origem">
+		<s:ComboBox x="56" y="8">
+			<s:ArrayCollection>
+				<fx:String>Mysql</fx:String>
+				<fx:String>SqlServer</fx:String>
+				<fx:String>Oracle (com Service Name)</fx:String>
+				<fx:String>Oracle (com SID)</fx:String>
+			</s:ArrayCollection>
+		</s:ComboBox>
+		<s:Label x="10" y="19" text="Banco"/>
+	</s:Panel>
+	<s:Panel x="482" y="40" width="400" height="550" title="Destino"> 
+		<s:ComboBox x="56" y="8">
+			<s:ArrayCollection>
+				<fx:String>Mysql</fx:String>
+				<fx:String>SqlServer</fx:String>
+				<fx:String>Oracle (com Service Name)</fx:String>
+				<fx:String>Oracle (com SID)</fx:String>
+			</s:ArrayCollection>
+		</s:ComboBox>
+		<s:Label x="10" y="19" text="Banco"/>
+	</s:Panel>
+	<mx:LinkButton x="821" y="7" label="Fechar" click="linkbutton1_clickHandler(event)"/>
+</mx:Module>
