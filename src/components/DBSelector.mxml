@@ -1,0 +1,195 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:Accordion xmlns:fx="http://ns.adobe.com/mxml/2009" 
+			  xmlns:s="library://ns.adobe.com/flex/spark" 
+			  xmlns:mx="library://ns.adobe.com/flex/mx" width="400" height="550" xmlns:services="services.*" xmlns:components="components.*">
+	
+	<fx:Script>
+		<![CDATA[
+			import beans.DataBase;
+			
+			import mx.collections.ArrayList;
+			import mx.controls.Alert;
+			import mx.core.IUIComponent;
+			import mx.events.DragEvent;
+			import mx.managers.DragManager;
+			import mx.managers.PopUpManager;
+			import mx.modules.ModuleLoader;
+			import mx.rpc.events.ResultEvent;
+			
+			import spark.events.IndexChangeEvent;
+			
+			import valueObjects.DataBase;
+			
+			//private var db:beans.DataBase = new beans.DataBase();
+			
+			
+			protected function cbbanco_change(event:IndexChangeEvent):void
+			{
+				switch(event.newIndex){
+					case 0:
+						currentState = "State1";
+						break;
+					case 1:
+						currentState = "mysql";
+						break;
+					case 2:
+						currentState = "sqlserver";
+						break;
+					case 3:
+						currentState = "oraclesid";
+						break;
+					case 4:
+						currentState = "oracleservice";
+						break;
+				}
+			}
+			
+			
+			protected function conectar_clickHandler(event:MouseEvent, dbIndex:int):void
+			{
+				var db:valueObjects.DataBase = new valueObjects.DataBase();
+				
+				db.user = txtUser.text;
+				db.password = txtPass.text;
+				db.url = txtUrl.text;
+				db.port = txtPort.text
+				db.db = dbIndex;
+				switch(dbIndex){
+					case 1:
+						db.baseOrSid = txtBase.text;
+						break;
+					case 2:
+						db.baseOrSid = txtBase.text;
+						db.schema = txtSchema.text;
+						break;
+					case 3:
+						db.baseOrSid = txtSid.text;
+						db.schema = txtUser.text;
+						break;
+					case 4:
+						db.baseOrSid = txtService.text;
+						db.schema = txtUser.text;
+						break;
+				}
+				//db.url = txturl.text;
+				tabelaResult.token = databases.listaTabelas(db);
+			}
+			
+			
+			protected function databases_resultHandler(event:ResultEvent):void
+			{
+				navTabela.visible = true;
+				navTabela.setFocus();
+				
+			}
+			
+			protected function button1_clickHandler(event:MouseEvent):void
+			{
+				cbTabela.enabled = false;
+				colunasResult.token = databases.listaColunas(cbTabela.selectedItem);
+				cbTabela.enabled = true;
+			}
+			
+			protected function mouseDownHandler(e:MouseEvent):void {
+				DragManager.doDrag(e.currentTarget as IUIComponent, null, e);
+			}
+			
+			protected function dragEnterHandler(e:DragEvent):void {
+				DragManager.acceptDragDrop(e.currentTarget as IUIComponent);
+			}
+			
+			protected function dragDropHandler(e:DragEvent):void {
+				e.currentTarget.addElement(e.dragInitiator);
+			}
+			
+			
+		]]>
+	</fx:Script>
+	<mx:states>
+		<s:State name="State1"/>
+		<s:State name="mysql"/>
+		<s:State name="sqlserver"/>
+		<s:State name="oraclesid"/>
+		<s:State name="oracleservice"/>
+	</mx:states>
+	<fx:Declarations>
+		<!-- Place non-visual elements (e.g., services, value objects) here -->
+		<fx:String id="title" />
+		<s:CallResponder id="tabelaResult"/>
+		<s:CallResponder id="colunasResult"/>
+		<services:Databases id="databases" fault="Alert.show(event.fault.faultString + '\n' + event.fault.faultDetail)"
+							result="databases_resultHandler(event)"/>
+	</fx:Declarations>
+	<s:NavigatorContent width="100%" height="100%" label="{title}">
+		<mx:Form y="10" width="100%" height="117" x="0">
+			<mx:FormItem label="Banco" width="263">
+				<s:ComboBox id="cbBanco" change="cbbanco_change(event)" width="100%">
+					<s:ArrayCollection>
+						<fx:String> </fx:String>
+						<fx:String>Mysql</fx:String>
+						<fx:String>SqlServer</fx:String>
+						<fx:String>Oracle (com SID)</fx:String>
+						<fx:String>Oracle (com ServiceName)</fx:String>
+					</s:ArrayCollection>
+				</s:ComboBox>
+			</mx:FormItem>
+			<mx:FormItem label="Usuario">
+				<s:TextInput id="txtUser"  />
+			</mx:FormItem>
+			<mx:FormItem label="Senha">
+				<s:TextInput id="txtPass" />
+			</mx:FormItem>
+		</mx:Form>
+		<mx:Form x="0" y="136" width="100%" height="180">
+			<mx:FormItem includeIn="mysql,sqlserver,oraclesid,oracleservice" label="Host">
+				<s:TextInput id="txtUrl" />
+			</mx:FormItem>
+			<mx:FormItem includeIn="mysql,sqlserver,oraclesid,oracleservice" label="Porta">
+				<s:TextInput id="txtPort" />
+			</mx:FormItem>
+			<mx:FormItem includeIn="mysql,sqlserver" label="Base">
+				<s:TextInput id="txtBase" />
+			</mx:FormItem>
+			<mx:FormItem includeIn="sqlserver" label="Instancia">
+				<s:TextInput id="txtSchema" />
+			</mx:FormItem>
+			<mx:FormItem includeIn="oraclesid" label="SID">
+				<s:TextInput id="txtSid" />
+			</mx:FormItem>
+			<mx:FormItem includeIn="oracleservice" label="Service">
+				<s:TextInput id="txtService" />
+			</mx:FormItem>
+			<mx:FormItem includeIn="sqlserver" >
+				<s:Button label="Conectar" click="conectar_clickHandler(event,cbBanco.selectedIndex)"/>
+			</mx:FormItem>
+			<mx:FormItem includeIn="mysql" >
+				<s:Button label="Conectar" click="conectar_clickHandler(event,cbBanco.selectedIndex)"/>
+			</mx:FormItem>
+			<mx:FormItem includeIn="oraclesid" >
+				<s:Button label="Conectar" click="conectar_clickHandler(event,cbBanco.selectedIndex)"/>
+			</mx:FormItem>
+			<mx:FormItem includeIn="oracleservice" >
+				<s:Button label="Conectar" click="conectar_clickHandler(event,cbBanco.selectedIndex)" />
+			</mx:FormItem>
+		</mx:Form>
+	</s:NavigatorContent>
+	<s:NavigatorContent id="navTabela" label="Tabela" width="100%" height="100%" visible="false">
+		<mx:Form width="100%" x="0" y="0" height="82">
+			<mx:FormItem label="Tabela" width="263" >
+				<s:ComboBox id="cbTabela" width="100%" dataProvider="{tabelaResult.lastResult}" />
+			</mx:FormItem>
+			<mx:FormItem horizontalAlign="left">
+				<s:Button label="Selecionar" click="button1_clickHandler(event)"/>
+			</mx:FormItem>
+		</mx:Form>
+		<mx:DataGrid width="398" dataProvider="{colunasResult.lastResult}" x="0" y="103">
+			<mx:columns>
+				<mx:DataGridColumn headerText="COLUNA" dataField="nomeColuna" />
+				<mx:DataGridColumn headerText="TIPO" dataField="tipo" />
+				<mx:DataGridColumn headerText="TAMANHO" dataField="tamanho" />
+			</mx:columns>
+		</mx:DataGrid>
+		
+	</s:NavigatorContent>
+	
+</mx:Accordion>

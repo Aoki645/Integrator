@@ -4,99 +4,347 @@
   <annotation name="ActionScriptGeneration">
     <item name="FullyQualifyReferences">true</item>
   </annotation>
-  <service name="FileUtils">
+  <service name="Databases">
     <annotation name="ActionScriptGeneration">
       <item name="ServiceType">RemoteObject</item>
       <item name="Package">services</item>
-      <item name="Destination">FileUtils</item>
+      <item name="Destination">databases</item>
     </annotation>
     <annotation name="ServiceConfig">
       <item name="DEFAULT_ENTITY_PACKAGE">valueObjects</item>
       <item name="contextRoot">/Intergrator</item>
       <item name="rootUrl">http://localhost:8080/Intergrator/</item>
       <item name="LINKED_FILE"></item>
-      <item name="ABSOLUTE_ENDPOINT">rtmp://localhost:2038</item>
+      <item name="ABSOLUTE_ENDPOINT">http://localhost:8080/Intergrator/messagebroker/amf</item>
     </annotation>
     <annotation name="ServiceTypeGroup">
       <item name="ServiceBackendType">LCDS</item>
     </annotation>
-    <function name="getDownloadList" return-type="opaque[]">
-      <annotation name="original signature">
-        <item name="returnType">opaque</item>
-      </annotation>
-      <annotation name="analyze group">
-        <item name="analyzed">false</item>
-      </annotation>
-    </function>
-    <function name="doUpload" arguments="arg0:blob,arg1:string" return-type="string">
+    <function name="listaTabelas" arguments="arg0:DataBase" return-type="string[]">
       <annotation name="analyze group">
         <item name="analyzed">true</item>
       </annotation>
       <annotation name="original signature">
-        <item name="inputParams">blob,string</item>
+        <item name="inputParams">DataBase</item>
         <item name="returnType">string</item>
       </annotation>
     </function>
-    <function name="doDownload" arguments="arg0:string" return-type="blob">
+    <function name="listaColunas" arguments="arg0:string" return-type="ColumnProperties[]">
       <annotation name="analyze group">
         <item name="analyzed">true</item>
       </annotation>
       <annotation name="original signature">
         <item name="inputParams">string</item>
-        <item name="returnType">blob</item>
-      </annotation>
-    </function>
-    <function name="cancelUploads" arguments="arg0:string" return-type="void">
-      <annotation name="analyze group">
-        <item name="analyzed">true</item>
-      </annotation>
-      <annotation name="original signature">
-        <item name="inputParams">string</item>
-      </annotation>
-    </function>
-    <function name="readFile" arguments="arg0:string" return-type="string[]">
-      <annotation name="analyze group">
-        <item name="analyzed">true</item>
-      </annotation>
-      <annotation name="original signature">
-        <item name="inputParams">string</item>
-        <item name="returnType">string</item>
-      </annotation>
-    </function>
-    <function name="populateColumnsSplit" arguments="arg0:string[],arg1:string,arg2:boolean" return-type="string">
-      <annotation name="analyze group">
-        <item name="analyzed">true</item>
-      </annotation>
-      <annotation name="original signature">
-        <item name="inputParams">string,string,boolean</item>
-        <item name="returnType">string</item>
-      </annotation>
-    </function>
-    <function name="getColumnFildsPosition" arguments="arg0:integer[],arg1:string" return-type="string[]">
-      <annotation name="analyze group">
-        <item name="analyzed">true</item>
-      </annotation>
-      <annotation name="original signature">
-        <item name="inputParams">integer,string</item>
-        <item name="returnType">string</item>
-      </annotation>
-    </function>
-    <function name="populateColumnsPosition" arguments="arg0:integer[],arg1:string[],arg2:boolean" return-type="string">
-      <annotation name="analyze group">
-        <item name="analyzed">true</item>
-      </annotation>
-      <annotation name="original signature">
-        <item name="inputParams">integer,string,boolean</item>
-        <item name="returnType">string</item>
-      </annotation>
-    </function>
-    <function name="main" arguments="arg0:string[]" return-type="void">
-      <annotation name="analyze group">
-        <item name="analyzed">true</item>
-      </annotation>
-      <annotation name="original signature">
-        <item name="inputParams">string</item>
+        <item name="returnType">ColumnProperties</item>
       </annotation>
     </function>
   </service>
+  <entity name="DataBase">
+    <annotation name="EntityProperties">
+      <item name="EntityOriginalName">DataBase</item>
+    </annotation>
+    <annotation name="ServerProperties">
+      <item name="RemoteClass">integrator.mig.database.DataBase</item>
+    </annotation>
+    <annotation name="service Group">
+      <item name="service">Databases,Dummy</item>
+    </annotation>
+    <annotation name="ActionScriptGeneration">
+      <item name="Package">valueObjects</item>
+    </annotation>
+    <property name="port" type="string" required="true"/>
+    <property name="db" type="integer" required="true"/>
+    <property name="tableItems" type="opaque" required="true"/>
+    <property name="table" type="string" required="true"/>
+    <property name="columnProperties" type="ColumnProperties[]" required="true"/>
+    <property name="password" type="string" required="true"/>
+    <property name="url" type="string" required="true"/>
+    <property name="schema" type="string" required="true"/>
+    <property name="connectionFactory" type="ConnectionFactory" required="true"/>
+    <property name="columnsProperties" type="ColumnProperties[]" required="true"/>
+    <property name="baseOrSid" type="string" required="true"/>
+    <property name="colunaOriginal" type="string" required="true"/>
+    <property name="column" type="string" required="true"/>
+    <property name="user" type="string" required="true"/>
+  </entity>
+  <entity name="ResultSet">
+    <annotation name="EntityProperties">
+      <item name="EntityOriginalName">ResultSet</item>
+    </annotation>
+    <annotation name="ServerProperties">
+      <item name="RemoteClass">java.sql.ResultSet</item>
+    </annotation>
+    <annotation name="service Group">
+      <item name="service">Databases,Dummy</item>
+    </annotation>
+    <annotation name="ActionScriptGeneration">
+      <item name="Package">valueObjects</item>
+    </annotation>
+    <property name="fetchSize" type="integer" required="true"/>
+    <property name="holdability" type="integer" required="true"/>
+    <property name="last" type="boolean" required="true"/>
+    <property name="beforeFirst" type="boolean" required="true"/>
+    <property name="type" type="integer" required="true"/>
+    <property name="cursorName" type="string" required="true"/>
+    <property name="row" type="integer" required="true"/>
+    <property name="statement" type="Statement" required="true"/>
+    <property name="fetchDirection" type="integer" required="true"/>
+    <property name="afterLast" type="boolean" required="true"/>
+    <property name="concurrency" type="integer" required="true"/>
+    <property name="closed" type="boolean" required="true"/>
+    <property name="warnings" type="SQLWarning" required="true"/>
+    <property name="first" type="boolean" required="true"/>
+    <property name="metaData" type="ResultSetMetaData" required="true"/>
+  </entity>
+  <entity name="Statement">
+    <annotation name="EntityProperties">
+      <item name="EntityOriginalName">Statement</item>
+    </annotation>
+    <annotation name="ServerProperties">
+      <item name="RemoteClass">java.sql.Statement</item>
+    </annotation>
+    <annotation name="service Group">
+      <item name="service">Databases,Dummy</item>
+    </annotation>
+    <annotation name="ActionScriptGeneration">
+      <item name="Package">valueObjects</item>
+    </annotation>
+    <property name="fetchSize" type="integer" required="true"/>
+    <property name="connection" type="Connection" required="true"/>
+    <property name="resultSetHoldability" type="integer" required="true"/>
+    <property name="queryTimeout" type="integer" required="true"/>
+    <property name="resultSetType" type="integer" required="true"/>
+    <property name="resultSetConcurrency" type="integer" required="true"/>
+    <property name="fetchDirection" type="integer" required="true"/>
+    <property name="maxFieldSize" type="integer" required="true"/>
+    <property name="poolable" type="boolean" required="true"/>
+    <property name="maxRows" type="integer" required="true"/>
+    <property name="closed" type="boolean" required="true"/>
+    <property name="resultSet" type="ResultSet" required="true"/>
+    <property name="updateCount" type="integer" required="true"/>
+    <property name="warnings" type="SQLWarning" required="true"/>
+    <property name="generatedKeys" type="ResultSet" required="true"/>
+  </entity>
+  <entity name="DatabaseMetaData">
+    <annotation name="EntityProperties">
+      <item name="EntityOriginalName">DatabaseMetaData</item>
+    </annotation>
+    <annotation name="ServerProperties">
+      <item name="RemoteClass">java.sql.DatabaseMetaData</item>
+    </annotation>
+    <annotation name="service Group">
+      <item name="service">Databases,Dummy</item>
+    </annotation>
+    <annotation name="ActionScriptGeneration">
+      <item name="Package">valueObjects</item>
+    </annotation>
+    <property name="databaseProductName" type="string" required="true"/>
+    <property name="defaultTransactionIsolation" type="integer" required="true"/>
+    <property name="maxCursorNameLength" type="integer" required="true"/>
+    <property name="SQLStateType" type="integer" required="true"/>
+    <property name="typeInfo" type="ResultSet" required="true"/>
+    <property name="maxStatements" type="integer" required="true"/>
+    <property name="userName" type="string" required="true"/>
+    <property name="driverName" type="string" required="true"/>
+    <property name="maxCatalogNameLength" type="integer" required="true"/>
+    <property name="catalogAtStart" type="boolean" required="true"/>
+    <property name="databaseProductVersion" type="string" required="true"/>
+    <property name="catalogSeparator" type="string" required="true"/>
+    <property name="driverMajorVersion" type="integer" required="true"/>
+    <property name="connection" type="Connection" required="true"/>
+    <property name="SQLKeywords" type="string" required="true"/>
+    <property name="timeDateFunctions" type="string" required="true"/>
+    <property name="maxBinaryLiteralLength" type="integer" required="true"/>
+    <property name="extraNameCharacters" type="string" required="true"/>
+    <property name="maxColumnsInIndex" type="integer" required="true"/>
+    <property name="databaseMajorVersion" type="integer" required="true"/>
+    <property name="maxColumnNameLength" type="integer" required="true"/>
+    <property name="procedureTerm" type="string" required="true"/>
+    <property name="catalogTerm" type="string" required="true"/>
+    <property name="JDBCMinorVersion" type="integer" required="true"/>
+    <property name="JDBCMajorVersion" type="integer" required="true"/>
+    <property name="searchStringEscape" type="string" required="true"/>
+    <property name="databaseMinorVersion" type="integer" required="true"/>
+    <property name="maxProcedureNameLength" type="integer" required="true"/>
+    <property name="maxTablesInSelect" type="integer" required="true"/>
+    <property name="maxTableNameLength" type="integer" required="true"/>
+    <property name="driverMinorVersion" type="integer" required="true"/>
+    <property name="maxCharLiteralLength" type="integer" required="true"/>
+    <property name="maxIndexLength" type="integer" required="true"/>
+    <property name="stringFunctions" type="string" required="true"/>
+    <property name="maxColumnsInOrderBy" type="integer" required="true"/>
+    <property name="maxRowSize" type="integer" required="true"/>
+    <property name="URL" type="string" required="true"/>
+    <property name="clientInfoProperties" type="ResultSet" required="true"/>
+    <property name="maxStatementLength" type="integer" required="true"/>
+    <property name="schemas" type="ResultSet" required="true"/>
+    <property name="maxConnections" type="integer" required="true"/>
+    <property name="maxUserNameLength" type="integer" required="true"/>
+    <property name="rowIdLifetime" type="string" required="true"/>
+    <property name="resultSetHoldability" type="integer" required="true"/>
+    <property name="schemaTerm" type="string" required="true"/>
+    <property name="driverVersion" type="string" required="true"/>
+    <property name="maxSchemaNameLength" type="integer" required="true"/>
+    <property name="identifierQuoteString" type="string" required="true"/>
+    <property name="maxColumnsInSelect" type="integer" required="true"/>
+    <property name="maxColumnsInGroupBy" type="integer" required="true"/>
+    <property name="systemFunctions" type="string" required="true"/>
+    <property name="readOnly" type="boolean" required="true"/>
+    <property name="tableTypes" type="ResultSet" required="true"/>
+    <property name="numericFunctions" type="string" required="true"/>
+    <property name="catalogs" type="ResultSet" required="true"/>
+    <property name="maxColumnsInTable" type="integer" required="true"/>
+  </entity>
+  <entity name="ConnectionFactory">
+    <annotation name="EntityProperties">
+      <item name="EntityOriginalName">ConnectionFactory</item>
+    </annotation>
+    <annotation name="ServerProperties">
+      <item name="RemoteClass">integrator.mig.connect.ConnectionFactory</item>
+    </annotation>
+    <annotation name="service Group">
+      <item name="service">Databases</item>
+    </annotation>
+    <annotation name="ActionScriptGeneration">
+      <item name="Package">valueObjects</item>
+    </annotation>
+    <property name="connection" type="Connection"/>
+  </entity>
+  <entity name="SQLException">
+    <annotation name="EntityProperties">
+      <item name="EntityOriginalName">SQLException</item>
+    </annotation>
+    <annotation name="ServerProperties">
+      <item name="RemoteClass">java.sql.SQLException</item>
+    </annotation>
+    <annotation name="service Group">
+      <item name="service">Databases</item>
+    </annotation>
+    <annotation name="ActionScriptGeneration">
+      <item name="Package">valueObjects</item>
+    </annotation>
+    <property name="SQLState" type="string"/>
+    <property name="message" type="string"/>
+    <property name="localizedMessage" type="string"/>
+    <property name="cause" type="Throwable"/>
+    <property name="errorCode" type="integer"/>
+    <property name="nextException" type="SQLException"/>
+    <property name="stackTrace" type="StackTraceElement[]"/>
+  </entity>
+  <entity name="ResultSetMetaData">
+    <annotation name="EntityProperties">
+      <item name="EntityOriginalName">ResultSetMetaData</item>
+    </annotation>
+    <annotation name="ServerProperties">
+      <item name="RemoteClass">java.sql.ResultSetMetaData</item>
+    </annotation>
+    <annotation name="service Group">
+      <item name="service">Databases</item>
+    </annotation>
+    <annotation name="ActionScriptGeneration">
+      <item name="Package">valueObjects</item>
+    </annotation>
+    <property name="columnCount" type="integer"/>
+  </entity>
+  <entity name="SQLWarning">
+    <annotation name="EntityProperties">
+      <item name="EntityOriginalName">SQLWarning</item>
+    </annotation>
+    <annotation name="ServerProperties">
+      <item name="RemoteClass">java.sql.SQLWarning</item>
+    </annotation>
+    <annotation name="service Group">
+      <item name="service">Databases,Dummy</item>
+    </annotation>
+    <annotation name="ActionScriptGeneration">
+      <item name="Package">valueObjects</item>
+    </annotation>
+    <property name="SQLState" type="string" required="true"/>
+    <property name="message" type="string" required="true"/>
+    <property name="localizedMessage" type="string" required="true"/>
+    <property name="nextWarning" type="SQLWarning" required="true"/>
+    <property name="cause" type="Throwable" required="true"/>
+    <property name="errorCode" type="integer" required="true"/>
+    <property name="nextException" type="SQLException" required="true"/>
+    <property name="stackTrace" type="StackTraceElement[]" required="true"/>
+  </entity>
+  <entity name="Throwable">
+    <annotation name="EntityProperties">
+      <item name="EntityOriginalName">Throwable</item>
+    </annotation>
+    <annotation name="ServerProperties">
+      <item name="RemoteClass">java.lang.Throwable</item>
+    </annotation>
+    <annotation name="service Group">
+      <item name="service">Databases</item>
+    </annotation>
+    <annotation name="ActionScriptGeneration">
+      <item name="Package">valueObjects</item>
+    </annotation>
+    <property name="message" type="string"/>
+    <property name="localizedMessage" type="string"/>
+    <property name="cause" type="Throwable"/>
+    <property name="stackTrace" type="StackTraceElement[]"/>
+  </entity>
+  <entity name="Connection">
+    <annotation name="EntityProperties">
+      <item name="EntityOriginalName">Connection</item>
+    </annotation>
+    <annotation name="ServerProperties">
+      <item name="RemoteClass">java.sql.Connection</item>
+    </annotation>
+    <annotation name="service Group">
+      <item name="service">Databases,Dummy</item>
+    </annotation>
+    <annotation name="ActionScriptGeneration">
+      <item name="Package">valueObjects</item>
+    </annotation>
+    <property name="autoCommit" type="boolean" required="true"/>
+    <property name="readOnly" type="boolean" required="true"/>
+    <property name="holdability" type="integer" required="true"/>
+    <property name="typeMap" type="opaque" required="true"/>
+    <property name="catalog" type="string" required="true"/>
+    <property name="closed" type="boolean" required="true"/>
+    <property name="transactionIsolation" type="integer" required="true"/>
+    <property name="clientInfo" type="opaque" required="true"/>
+    <property name="warnings" type="SQLWarning" required="true"/>
+    <property name="metaData" type="DatabaseMetaData" required="true"/>
+  </entity>
+  <entity name="ColumnProperties">
+    <annotation name="EntityProperties">
+      <item name="EntityOriginalName">ColumnProperties</item>
+    </annotation>
+    <annotation name="ServerProperties">
+      <item name="RemoteClass">integrator.mig.database.beans.ColumnProperties</item>
+    </annotation>
+    <annotation name="service Group">
+      <item name="service">Dummy,Databases</item>
+    </annotation>
+    <annotation name="ActionScriptGeneration">
+      <item name="Package">valueObjects</item>
+    </annotation>
+    <property name="tamanho" type="integer"/>
+    <property name="mapear" type="string"/>
+    <property name="tipo" type="string"/>
+    <property name="nomeColuna" type="string"/>
+  </entity>
+  <entity name="StackTraceElement">
+    <annotation name="EntityProperties">
+      <item name="EntityOriginalName">StackTraceElement</item>
+    </annotation>
+    <annotation name="ServerProperties">
+      <item name="RemoteClass">java.lang.StackTraceElement</item>
+    </annotation>
+    <annotation name="service Group">
+      <item name="service">Databases,Dummy</item>
+    </annotation>
+    <annotation name="ActionScriptGeneration">
+      <item name="Package">valueObjects</item>
+    </annotation>
+    <property name="fileName" type="string" required="true"/>
+    <property name="lineNumber" type="integer" required="true"/>
+    <property name="className" type="string" required="true"/>
+    <property name="nativeMethod" type="boolean" required="true"/>
+    <property name="methodName" type="string" required="true"/>
+  </entity>
 </model>

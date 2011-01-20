@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:MenuBar xmlns:fx="http://ns.adobe.com/mxml/2009" 
+			xmlns:s="library://ns.adobe.com/flex/spark" 
+			xmlns:mx="library://ns.adobe.com/flex/mx" >
+	<fx:Declarations>
+		<!-- Place non-visual elements (e.g., services, value objects) here -->
+		<fx:XMLList>
+			<menuitem label="Perfil">
+				<menuitem label="Cadastro" />
+				<menuitem label="Informacoes"/>
+			</menuitem>
+			<menuitem label="Migracao">
+				<menuitem label="Arquivo / Arquivo" />
+				<menuitem label="Arquivo / Banco"/>
+				<menuitem label="Banco / Arquivo "/>
+				<menuitem label="Banco / Banco" itemClick="linkbutton1_clickHandler(event)"/>
+			</menuitem>
+		</fx:XMLList>
+	</fx:Declarations>
+	
+	
+</mx:MenuBar>

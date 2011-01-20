@@ -1,14 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <s:Application xmlns:fx="http://ns.adobe.com/mxml/2009" 
 			   xmlns:s="library://ns.adobe.com/flex/spark" 
-			   xmlns:mx="library://ns.adobe.com/flex/mx" minWidth="1024" minHeight="768">
+			   xmlns:mx="library://ns.adobe.com/flex/mx" minWidth="1024" minHeight="768"  
+			   pageTitle="Integrator">
 	
-
 	<fx:Script>
 		<![CDATA[
+			import mx.controls.Alert;
+			import mx.events.MenuEvent;
 			import mx.managers.PopUpManager;
 			import mx.modules.ModuleLoader;
 			import mx.modules.ModuleManager;
+			
+			import skins.AppSkin;
 			
 			import views.DBSelector;
 			protected function linkbutton1_clickHandler(event:MouseEvent):void
@@ -17,15 +21,36 @@
 				pnDb = PopUpManager.createPopUp(this, views.DBSelector,true) as DBSelector;
 				PopUpManager.centerPopUp(pnDb);
 			}
+			protected function itemMenu_clickHandler(event:MenuEvent):void
+			{
+				Alert.show(""+event.index)
+/* 				var pnDb:DBSelector = null;
+				pnDb = PopUpManager.createPopUp(this, views.DBSelector,true) as DBSelector;
+				PopUpManager.centerPopUp(pnDb);
+ */			}
+
 		]]>
 	</fx:Script>
-
+	
 	<fx:Declarations>
 		<!-- Place non-visual elements (e.g., services, value objects) here -->
+		<fx:XMLList id="xmlMenu">
+			<menuitem label="Perfil">
+				<menuitem data="1" label="Cadastro" />
+				<menuitem data="2" label="Informacoes"/>
+			</menuitem>
+			<menuitem label="Migracao">
+				<menuitem data="3" label="Arquivo / Arquivo" />
+				<menuitem data="4" label="Arquivo / Banco"/>
+				<menuitem data="5" label="Banco / Arquivo "/>
+				<menuitem data="6" label="Banco / Banco" />
+			</menuitem>
+		</fx:XMLList>
+
 	</fx:Declarations>
-	<mx:Image x="10" y="10" width="150" height="79" source="img/logo_interface.png"/>
-	<mx:LinkButton x="168" y="67" label="InterDb" width="62" height="22" color="#FF8A01" click="linkbutton1_clickHandler(event)"/>
-	
-	 
-	
+	<mx:LinkButton visible="false" x="98" y="98" label="InterDb" width="62" height="22" color="#FF8A01" click="linkbutton1_clickHandler(event)"/>
+	<mx:MenuBar width="100%" labelField="@label" height="25" horizontalCenter="0" top="10" cornerRadius="5"
+				itemClick="itemMenu_clickHandler(event)" dataProvider="{xmlMenu}" />
+	<s:Button x="79" y="115" label="Button"/>
+
 </s:Application>
