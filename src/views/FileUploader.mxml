@@ -1,0 +1,476 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:Module xmlns:fx="http://ns.adobe.com/mxml/2009" 
+		   xmlns:s="library://ns.adobe.com/flex/spark" 
+		   xmlns:mx="library://ns.adobe.com/flex/mx" width="1000" height="500" xmlns:components="components.*" chromeColor="#AFAFAF" xmlns:services="services.*">
+	<s:Panel width="1000" height="500">
+		<s:Label text="Arquivo:" x="16" y="27" fontSize="14" includeIn="state_delimitador,state_inicial,state_posicao"/>
+		
+		<s:TextInput id="fileInTxt" x="74" y="21" width="188" editable="false" includeIn="state_delimitador,state_inicial,state_posicao"/>
+		
+		<s:Button label="Upload" click="iniciaUpload()" enabled.state_delimitador="false" enabled.state_posicao="false" x.state_delimitador="74" y.state_delimitador="51" x.state_inicial="74" y.state_inicial="51" x.state_posicao="74" y.state_posicao="51" includeIn="state_delimitador,state_inicial,state_posicao"/>
+		
+		<mx:ProgressBar id="pb" mode="manual"  visible="true" label="Carregando %3%%" width="246" x="16" y="96"  includeIn="state_delimitador,state_inicial,state_posicao"/>
+		
+		<s:Button id="cancel" label="Cancelar" enabled="false" enabled.state_delimitador="false" enabled.state_posicao="false" width="86" click.state_inicial="cancelbtn()" click.state_posicao="cancelbtn()" click.state_delimitador="cancelbtn()" x.state_delimitador="176" y.state_delimitador="51" x.state_inicial="176" y.state_inicial="51" x.state_posicao="176" y.state_posicao="51" includeIn="state_delimitador,state_inicial,state_posicao"/>
+		
+		<mx:VRule height="447" x="292" y="10"  includeIn="state_config,state_delimitador,state_inicial,state_posicao"/>
+		
+		<s:List id="listLinhas" enabled="true" height="201" focusEnabled="false"  includeIn="state_delimitador,state_inicial,state_posicao" x="302" y="10" width="686"/>
+		
+		<mx:HRule x="10" y="149" width="261"  includeIn="state_delimitador,state_inicial,state_posicao"/>
+		
+		
+		<mx:DataGrid id="datagrid" x="302" y="220" width="686"  horizontalScrollPolicy="on" height="238" visible="true"   sortableColumns="false"  includeIn="state_config,state_delimitador,state_inicial,state_posicao"/>
+		
+		<s:Label x="28" y="163" text="Tipo de Formatação" fontSize="14" text.state_delimitador="Escolha um dos delimitadores" text.state_posicao="Digite as posições dos campos" x.state_posicao="24" y.state_posicao="163" includeIn="state_delimitador,state_inicial,state_posicao"/>
+		
+		<s:RadioButton id="radio_delimitador" x="44" y="194" label="Delimitador" groupName="grpTipoFormatacao" value="tpDelimitador" includeIn="state_config,state_delimitador,state_inicial,state_posicao"/>
+		<s:RadioButton x="44" y="220" label="Posição" groupName="grpTipoFormatacao"  id="radio_pos" value="tpPosicao" includeIn="state_config,state_delimitador,state_inicial,state_posicao"/>
+		
+		<s:RadioButton includeIn="state_delimitador" x="43" y="183" label="Vírgula" groupName="grpTipoDelimitadores" value=","/>		
+		<s:RadioButton includeIn="state_delimitador" x="43" y="209" label="Ponto e Vírgula" groupName="grpTipoDelimitadores" value=";"/>
+		<s:RadioButton includeIn="state_delimitador" x="43" y="235" label="Pipe" groupName="grpTipoDelimitadores" value="\|"/>
+		<s:RadioButton includeIn="state_delimitador" x="43" y="261" label="Outros" groupName="grpTipoDelimitadores" id="rdOutros" />
+		
+		<s:Button x="43" y="370" includeIn="state_posicao , state_delimitador"  click.state_delimitador="button1_clickHandler(event)" label.state_delimitador="Avançar" label.state_posicao="Avançar" click.state_posicao="button1_clickHandler(event)"/>
+		
+		<s:Button x="148" y="370" label="Voltar" click.state_delimitador="btnVoltar_clickHandler(event)" 
+				  click.state_posicao="btnVoltar_clickHandler(event)"  includeIn="state_config,state_delimitador,state_posicao" click.state_config="btnVoltarConfig_clickHandler(event)"/>
+		
+		<s:CheckBox includeIn="state_delimitador ,state_posicao" x="8" y="317" label="Primeira linha contém os nomes de campos?"   id="firstLine" change="firstLine_changeHandler(event)"/>
+		
+		<mx:Form includeIn="state_posicao" x="12" y="183" width="282" height="128">
+			<mx:FormItem label="Posição inicial:">
+				<s:TextInput id="posini" width="70" change="posini_changeHandler(event)" restrict="0-9"/>
+			</mx:FormItem>
+			<mx:FormItem label="Posição final">
+				<s:TextInput id="posfim" width="70"  change="posfim_changeHandler(event)" restrict="0-9"/>
+			</mx:FormItem>
+			<s:Button label="Inserir Coluna" id="btnInserCol" click="btnInserCol_clickHandler(event)" />
+			<mx:FormItem label="Nº Max permitido:" width="193">
+				<s:Label text="{maxNumber}"/>
+			</mx:FormItem>
+		</mx:Form>
+		<s:TextInput includeIn="state_delimitador" x="105" y="260" width="30" height="22" enabled="false" id="inOutros" maxChars="1" change="inOutros_changeHandler(event)"/>
+		
+		
+		<mx:DataGrid id="dgconfig"  x="302" y="10" width="684" height="202" editable="true" sortableColumns="false" keyDown="dgconfig_changeHandler()" click="dgconfig_changeHandler()" change="dgconfig_changeHandler()"  dataProvider="{arrConfigCols}" visible="false">
+			<mx:columns>
+				
+				<mx:DataGridColumn id="dgColNome" headerText="Nome"  dataField="DATA" editable="true" />		
+				
+				<mx:DataGridColumn id="dgColTipo" headerText="Tipo" editable="false" >
+					<mx:itemRenderer>
+						<fx:Component>
+							<mx:ComboBox contentBackgroundColor="#ffffff"> 
+								<mx:ArrayCollection>
+									<fx:String>Númerico</fx:String>
+									<fx:String>Character</fx:String>
+									<fx:String>Texto</fx:String>
+									<fx:String>Sim/Não</fx:String>
+								</mx:ArrayCollection>
+							</mx:ComboBox>							
+						</fx:Component>
+					</mx:itemRenderer>				
+				</mx:DataGridColumn>
+				
+				<mx:DataGridColumn id="dgColImport" headerText="não importar dados" editable="false"  >
+					<mx:itemRenderer>
+						<fx:Component>
+							<mx:CheckBox paddingLeft="5" />
+						</fx:Component>
+					</mx:itemRenderer>				
+				</mx:DataGridColumn>	
+				
+			</mx:columns>			
+			
+		</mx:DataGrid>
+		
+		<mx:Form includeIn="state_config" x="10" y="10" width="274" height="278">
+			<mx:FormItem label="Banco:">
+				<s:ComboBox/>
+			</mx:FormItem>
+		</mx:Form>
+		<s:Button includeIn="state_config" x="43" y="370" label="Finalizar" click="finalizar_clickHandler(event)"/>
+		<mx:DataGrid id="dgtarefas" width="998" height="408" dataProvider="{arrTarefasFinalizadas}" includeIn="state_finalizado" x="0" y="0">
+			<mx:columns>
+				<mx:DataGridColumn headerText="Nome Arquivo" dataField="nomeArquivo"/>
+				<mx:DataGridColumn headerText="Status" dataField="status"/>
+				<mx:DataGridColumn headerText="Tipo Transferencia" dataField="tipoTransferencia"/>
+				<mx:DataGridColumn headerText="Cancelar" editable="false" textAlign="center" >
+					<mx:itemRenderer>
+						<fx:Component>
+							<mx:CheckBox paddingLeft="5" label="Somente status em aguardo podem ser cancelados"  />
+						</fx:Component>
+					</mx:itemRenderer>				
+				</mx:DataGridColumn>	
+			</mx:columns>
+		</mx:DataGrid>
+		<s:Button label="Transferir novo Arquivo" includeIn="state_finalizado" x="46" y="428" width="163" height="20" click="iniciaNovaTransferencia(event)"/>
+		
+		
+	</s:Panel>
+	
+	<mx:states>
+		<s:State name="state_inicial" enterState="state_inicial_enterStateHandler(event)"/>
+		<s:State name="state_delimitador" enterState="state_delimitador_enterStateHandler(event)"/>
+		<s:State name="state_posicao" enterState="state_posicao_enterStateHandler(event)"/>
+		<s:State name="state_config"/>
+		<s:State name="state_finalizado"/>
+	</mx:states>
+	
+	<fx:Declarations>
+		
+		<s:ArrayCollection id="arrCols"/>
+		<s:CallResponder id="doUploadResult"/>
+		<s:CallResponder id="populateCols" result="populateColumns_resultHandler(event)" />
+		<s:CallResponder id="fileText"  result="fileText_resultHandler(event)"/>
+		<mx:RemoteObject id="remoteUpload" destination="FileUtils" />
+		<services:FileUtils id="fileUtils"  />
+		<s:RadioButtonGroup id="grpTipoFormatacao"  itemClick="delimitadores_clickHandler(event)" />
+		<s:RadioButtonGroup id="grpTipoDelimitadores" change="grpTipoDelimitadores_changeHandler(event)"/>
+		<s:CallResponder id="cancelUploadsResult"/>
+		<s:CallResponder id="populateColsPos" result="populateColsPos_resultHandler(event)"/>
+	</fx:Declarations>
+	
+	<fx:Script>
+		<![CDATA[
+			import adobe.utils.XMLUI;
+			
+			import flash.sampler.NewObjectSample;
+			
+			import mx.collections.ArrayCollection;
+			import mx.collections.ArrayList;
+			import mx.collections.IList;
+			import mx.collections.XMLListCollection;
+			import mx.controls.Alert;
+			import mx.controls.dataGridClasses.DataGridColumn;
+			import mx.events.FlexEvent;
+			import mx.events.ItemClickEvent;
+			import mx.events.ListEvent;
+			import mx.rpc.AsyncToken;
+			import mx.rpc.events.FaultEvent;
+			import mx.rpc.events.ResultEvent;
+			import mx.rpc.events.XMLLoadEvent;
+			import mx.states.AddItems;
+			import mx.states.State;
+			import mx.utils.XMLUtil;
+			
+			import org.hamcrest.collection.array;
+			
+			import spark.components.List;
+			import spark.events.TextOperationEvent;
+			
+			
+			private var arquivoReferencia:FileReference;
+			private var UploadArquivos:Array = new Array();
+			private var progressbar:ProgressBar;
+			private var maxNumber:int = 0;
+			private var arrConfigCols:ArrayCollection ;
+			private var arrTarefasFinalizadas:ArrayCollection = new ArrayCollection();
+			
+			//adiciona Arquivos
+			private function iniciaUpload():void{
+				arquivoReferencia = new FileReference();
+				arquivoReferencia.browse();//Abre uma janela para o usuario selecionar o arquivo 
+				arquivoReferencia.addEventListener(Event.OPEN, openHandler);
+				arquivoReferencia.addEventListener(Event.SELECT,onFileSelect);
+				arquivoReferencia.addEventListener(ProgressEvent.PROGRESS, progressHandler);
+				arquivoReferencia.addEventListener(Event.COMPLETE, onFileComplete);
+				
+			}
+			
+			private function onFileSelect(evento:Event):void{
+				arquivoReferencia.load();
+				fileInTxt.text = arquivoReferencia.name;
+				cancel.enabled = true;
+			}
+			
+			private function progressHandler(event:ProgressEvent):void{
+				pb.setProgress(event.bytesLoaded, event.bytesTotal);
+				pb.setVisible(true);
+				pb.label = "Carregando "+pb.percentComplete.toPrecision(0); ;
+				
+			}
+			
+			private function onFileComplete(event:Event):void{
+				arquivoReferencia = event.currentTarget as FileReference;
+				var data:ByteArray = arquivoReferencia.data;  
+				var loader:Loader = new Loader();  
+				loader.loadBytes(data);  				
+				doUploadResult.token = fileUtils.doUpload(data, arquivoReferencia.name);				
+				fileText.token = fileUtils.readFile(arquivoReferencia.name);
+			}
+			
+			private function openHandler(event:Event):void{
+				pb.label = "Carregando %3%%";
+			}
+			
+			private function cancelbtn():void{
+				radio_delimitador.visible = true;
+				radio_pos.visible = true;
+				fileUtils.cancelUploads(arquivoReferencia.name);				
+				pb.label= "Upload Cancelado";
+				cancel.enabled = false;
+				fileInTxt.text ="";
+				listLinhas.dataProvider = null;
+				arquivoReferencia.cancel();
+				inOutros.enabled = false;
+				arrConfigCols = null;
+			}
+			
+			
+			
+			
+			protected function delimitadores_clickHandler(event:ItemClickEvent):void{
+				
+				if(fileInTxt.text != ""){					
+					
+					if(grpTipoFormatacao.selectedValue.toString() == "tpDelimitador"  ){
+						
+						currentState = "state_delimitador";
+						
+					}else if(grpTipoFormatacao.selectedValue.toString() == "tpPosicao"){
+						var list:IList = listLinhas.dataProvider;
+						for(var i:int = 0 ; i < list.length ; i++){
+							if(maxNumber <= list.getItemAt(i).length){
+								maxNumber = list.getItemAt(i).length;
+							}else{
+								Alert.show("Arquivo invalido: Verifica a quantidade de colunas em cada linha");
+								return ;
+							}					
+						}
+						currentState = "state_posicao";
+					}
+					radio_delimitador.visible = false;
+					radio_pos.visible = false;
+					if(grpTipoDelimitadores.selectedValue != null){
+						datagrid.visible = true;
+					}
+				}
+			}
+			
+			protected function btnVoltar_clickHandler(event:MouseEvent):void{			
+				
+				radio_delimitador.visible = true;
+				radio_pos.visible = true;			
+				datagrid.visible = false;
+				arrCols.removeAll();
+				currentState = "state_inicial";
+				
+			}
+			
+			protected function btnVoltarConfig_clickHandler(event:MouseEvent):void{		
+				dgconfig.visible = false;
+				
+				if(grpTipoFormatacao.selectedValue.toString() == "tpDelimitador"){
+					currentState = "state_delimitador";
+				}else if(grpTipoFormatacao.selectedValue.toString() == "tpPosicao"){
+					currentState = "state_posicao";
+				}
+				
+			}
+			
+			
+			
+			
+			public function completeDatagrid():void{
+				xmlLoadComplete();
+			}	
+			
+			public function xmlLoadComplete():void{
+				try{					
+					var xmlist:XMLList =   (new XML(populateCols.lastResult)).children();
+					var dgCols:Array = new Array();
+					var xmlColumns:XMLList = xmlist[0].children();				
+					var xml:XML ;					
+					arrConfigCols = new ArrayCollection();
+					for(var x:uint=0; x < xmlColumns.length(); x++){
+						xml = xmlColumns[x];
+						var col:DataGridColumn = new DataGridColumn();
+						col.headerText = xml.name();
+						col.dataField = xml.name();
+						arrConfigCols.addItem({DATA:xml.name()});
+						dgCols.push(col);					
+					}					
+					dgconfig.dataProvider = arrConfigCols;
+					datagrid.columns = dgCols;                            
+					datagrid.dataProvider = xmlist;					
+				}catch(e:Error){
+					firstLine.selected = false;
+					Alert.show("A primeira linha contém dados que não podem ser utilizados como campos.");
+					
+					datagrid.visible = false;
+				}				
+				datagrid.visible = true;							
+			}
+			
+			protected function populateColumns_resultHandler(event:ResultEvent):void
+			{
+				var result:String = populateCols.lastResult as String;
+				completeDatagrid();
+				
+			}
+			
+			
+			protected function grpTipoDelimitadores_changeHandler(event:Event):void
+			{									
+				if(!rdOutros.selected){
+					inOutros.enabled = false;
+					inOutros.text = "";
+					populateCols.token = fileUtils.populateColumnsSplit(fileText.lastResult,grpTipoDelimitadores.selectedValue.toString(),firstLine.selected);
+				}else{
+					
+					datagrid.visible = false;
+					inOutros.enabled = true;
+				}
+			}
+			
+			
+			protected function firstLine_changeHandler(event:Event):void
+			{
+				if(!rdOutros.selected){
+					populateCols.token = fileUtils.populateColumnsSplit(fileText.lastResult,grpTipoDelimitadores.selectedValue.toString(),firstLine.selected);
+				}else{
+					populateCols.token = fileUtils.populateColumnsSplit(fileText.lastResult,inOutros.text,firstLine.selected);
+				}
+			}
+			
+			
+			protected function fileText_resultHandler(event:ResultEvent):void
+			{ 
+				listLinhas.dataProvider = fileText.lastResult;
+			}
+			
+			protected function btnInserCol_clickHandler(event:MouseEvent):void
+			{
+				
+				if(posini.text != "" && posfim.text != "" && parseInt(posini.text) < parseInt(posfim.text)){
+					arrCols.addItem(parseInt(posini.text));
+					arrCols.addItem(parseInt(posfim.text));
+					posini.text = "";
+					posfim.text = "";
+					populateCols.token = fileUtils.populateColumnsPosition(arrCols, fileText.lastResult, firstLine.selected);		
+				}else{
+					Alert.show("Valor invalido");
+					return ;
+				}
+				
+			}
+			
+			
+			protected function populateColsPos_resultHandler(event:ResultEvent):void
+			{
+				completeDatagrid();
+			}
+			
+			
+			protected function posini_changeHandler(event:TextOperationEvent):void
+			{
+				if(parseInt(posini.text) > maxNumber ){
+					Alert.show("Numero máximo permito é " + maxNumber);
+					posini.text = "";
+				}
+				
+			}
+			
+			
+			protected function posfim_changeHandler(event:TextOperationEvent):void
+			{
+				if(parseInt(posfim.text) > maxNumber ){
+					Alert.show("Numero máximo permito é " + maxNumber);
+					posfim.text = "";
+				}
+			}
+			
+			
+			
+			
+			
+			protected function inOutros_changeHandler(event:TextOperationEvent):void
+			{
+				if(inOutros.text != ""){
+					populateCols.token = fileUtils.populateColumnsSplit(fileText.lastResult,inOutros.text,firstLine.selected);
+					datagrid.visible = true;
+				}else{
+					
+					datagrid.visible = false;
+				}
+			}
+			
+			
+			
+			protected function button1_clickHandler(event:MouseEvent):void
+			{
+				if(datagrid.visible){				
+					currentState = "state_config";
+					dgconfig.visible = true;
+				}
+				
+			}
+			
+			
+			protected function dgconfig_changeHandler():void
+			{
+				for (var i:int = 0 ; i < datagrid.columnCount; i++){					
+					(datagrid.columns[i] as DataGridColumn).headerText = arrConfigCols.getItemAt(i).DATA;
+				}
+			}
+			
+			
+			
+			
+			
+			
+			protected function finalizar_clickHandler(event:MouseEvent):void{
+				
+				
+				currentState = "state_finalizado";
+				arrTarefasFinalizadas.addItem({nomeArquivo:arquivoReferencia.name, status:"Em aguardo",tipoTransferencia:"Arquivo/Banco"});
+				
+			}
+			
+			
+			protected function iniciaNovaTransferencia(event:MouseEvent):void
+			{
+				pb.label= "";
+				cancel.enabled = false;
+				fileInTxt.text ="";
+				listLinhas.dataProvider = null;
+				arquivoReferencia = null;
+				arrConfigCols = null;
+				
+				currentState = "state_inicial";
+			}
+			
+			
+			protected function state_delimitador_enterStateHandler(event:FlexEvent):void
+			{
+				firstLine.selected = false;
+				grpTipoDelimitadores.selection = null;
+				inOutros.text = "";
+			}
+			
+			
+			protected function state_inicial_enterStateHandler(event:FlexEvent):void
+			{	radio_delimitador.visible = true;
+				radio_pos.visible = true;
+				dgconfig.visible = false;
+				datagrid.visible= false;
+				grpTipoFormatacao.selection = null;
+			}
+			
+			
+			protected function state_posicao_enterStateHandler(event:FlexEvent):void
+			{
+				posini.text = "";
+				posfim.text = "";
+				firstLine.selected = false;
+				
+			}
+			
+		]]>
+	</fx:Script>
+	
+	
+</mx:Module>

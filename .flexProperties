@@ -1,2 +1,2 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<flexProperties enableServiceManager="false" flexServerFeatures="6" flexServerType="2" serverContextRoot="/Intergrator" serverRoot="D:/eclipsehelios/workspace/Intergrator/WebContent" serverRootURL="http://localhost:8080/Intergrator/" toolCompile="true" useServerFlexSDK="false" version="2"/>
+<flexProperties enableServiceManager="false" flexServerFeatures="6" flexServerType="2" fmlDataModelLocation=".model/Integrator.fml" serverContextRoot="/Intergrator" serverRoot="C:/Eworkspace/Intergrator/WebContent" serverRootURL="http://localhost:8080/Intergrator/" toolCompile="true" useServerFlexSDK="false" version="2"/>

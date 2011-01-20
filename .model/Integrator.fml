@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<model xmlns="http://ns.adobe.com/Fiber/1.0">
+  <annotation name="ActionScriptGeneration">
+    <item name="FullyQualifyReferences">true</item>
+  </annotation>
+  <service name="FileUtils">
+    <annotation name="ActionScriptGeneration">
+      <item name="ServiceType">RemoteObject</item>
+      <item name="Package">services</item>
+      <item name="Destination">FileUtils</item>
+    </annotation>
+    <annotation name="ServiceConfig">
+      <item name="DEFAULT_ENTITY_PACKAGE">valueObjects</item>
+      <item name="contextRoot">/Intergrator</item>
+      <item name="rootUrl">http://localhost:8080/Intergrator/</item>
+      <item name="LINKED_FILE"></item>
+      <item name="ABSOLUTE_ENDPOINT">rtmp://localhost:2038</item>
+    </annotation>
+    <annotation name="ServiceTypeGroup">
+      <item name="ServiceBackendType">LCDS</item>
+    </annotation>
+    <function name="getDownloadList" return-type="opaque[]">
+      <annotation name="original signature">
+        <item name="returnType">opaque</item>
+      </annotation>
+      <annotation name="analyze group">
+        <item name="analyzed">false</item>
+      </annotation>
+    </function>
+    <function name="doUpload" arguments="arg0:blob,arg1:string" return-type="string">
+      <annotation name="analyze group">
+        <item name="analyzed">true</item>
+      </annotation>
+      <annotation name="original signature">
+        <item name="inputParams">blob,string</item>
+        <item name="returnType">string</item>
+      </annotation>
+    </function>
+    <function name="doDownload" arguments="arg0:string" return-type="blob">
+      <annotation name="analyze group">
+        <item name="analyzed">true</item>
+      </annotation>
+      <annotation name="original signature">
+        <item name="inputParams">string</item>
+        <item name="returnType">blob</item>
+      </annotation>
+    </function>
+    <function name="cancelUploads" arguments="arg0:string" return-type="void">
+      <annotation name="analyze group">
+        <item name="analyzed">true</item>
+      </annotation>
+      <annotation name="original signature">
+        <item name="inputParams">string</item>
+      </annotation>
+    </function>
+    <function name="readFile" arguments="arg0:string" return-type="string[]">
+      <annotation name="analyze group">
+        <item name="analyzed">true</item>
+      </annotation>
+      <annotation name="original signature">
+        <item name="inputParams">string</item>
+        <item name="returnType">string</item>
+      </annotation>
+    </function>
+    <function name="populateColumnsSplit" arguments="arg0:string[],arg1:string,arg2:boolean" return-type="string">
+      <annotation name="analyze group">
+        <item name="analyzed">true</item>
+      </annotation>
+      <annotation name="original signature">
+        <item name="inputParams">string,string,boolean</item>
+        <item name="returnType">string</item>
+      </annotation>
+    </function>
+    <function name="getColumnFildsPosition" arguments="arg0:integer[],arg1:string" return-type="string[]">
+      <annotation name="analyze group">
+        <item name="analyzed">true</item>
+      </annotation>
+      <annotation name="original signature">
+        <item name="inputParams">integer,string</item>
+        <item name="returnType">string</item>
+      </annotation>
+    </function>
+    <function name="populateColumnsPosition" arguments="arg0:integer[],arg1:string[],arg2:boolean" return-type="string">
+      <annotation name="analyze group">
+        <item name="analyzed">true</item>
+      </annotation>
+      <annotation name="original signature">
+        <item name="inputParams">integer,string,boolean</item>
+        <item name="returnType">string</item>
+      </annotation>
+    </function>
+    <function name="main" arguments="arg0:string[]" return-type="void">
+      <annotation name="analyze group">
+        <item name="analyzed">true</item>
+      </annotation>
+      <annotation name="original signature">
+        <item name="inputParams">string</item>
+      </annotation>
+    </function>
+  </service>
+</model>
