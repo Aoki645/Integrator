@@ -24,7 +24,6 @@
   <applications>
     <application path="IntegratorFile.mxml"/>
     <application path="Integrator.mxml"/>
-    <application path="FlexUnitCompilerApplication.mxml"/>
   </applications>
   <modules>
     <module application="src/Integrator.mxml" destPath="views/DBSelector.swf" optimize="true" sourcePath="src/views/DBSelector.mxml"/>
