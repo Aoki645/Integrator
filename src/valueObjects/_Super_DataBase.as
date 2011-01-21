@@ -60,22 +60,25 @@ public class _Super_DataBase extends flash.events.EventDispatcher implements com
 	/**
 	 * properties
 	 */
-	private var _internal_port : String;
-	private var _internal_db : int;
 	private var _internal_tableItems : Object;
 	private var _internal_table : String;
 	private var _internal_columnProperties : ArrayCollection;
 	model_internal var _internal_columnProperties_leaf:valueObjects.ColumnProperties;
-	private var _internal_password : String;
-	private var _internal_url : String;
-	private var _internal_schema : String;
 	private var _internal_connectionFactory : valueObjects.ConnectionFactory;
 	private var _internal_columnsProperties : ArrayCollection;
 	model_internal var _internal_columnsProperties_leaf:valueObjects.ColumnProperties;
-	private var _internal_baseOrSid : String;
 	private var _internal_colunaOriginal : String;
 	private var _internal_column : String;
+	private var _internal_nameDatabase : String;
+	private var _internal_port : int;
+	private var _internal_schema : String;
+	private var _internal_db : int;
+	private var _internal_host : String;
+	private var _internal_baseOrSid : String;
+	private var _internal_driver : String;
 	private var _internal_user : String;
+	private var _internal_password : String;
+	private var _internal_url : String;
 
     private static var emptyArray:Array = new Array();
 
@@ -98,16 +101,6 @@ public class _Super_DataBase extends flash.events.EventDispatcher implements com
      * data property getters
      */
 	[Bindable(event="propertyChange")] 
-    public function get port() : String    
-    {
-            return _internal_port;
-    }    
-	[Bindable(event="propertyChange")] 
-    public function get db() : int    
-    {
-            return _internal_db;
-    }    
-	[Bindable(event="propertyChange")] 
     public function get tableItems() : Object    
     {
             return _internal_tableItems;
@@ -123,21 +116,6 @@ public class _Super_DataBase extends flash.events.EventDispatcher implements com
             return _internal_columnProperties;
     }    
 	[Bindable(event="propertyChange")] 
-    public function get password() : String    
-    {
-            return _internal_password;
-    }    
-	[Bindable(event="propertyChange")] 
-    public function get url() : String    
-    {
-            return _internal_url;
-    }    
-	[Bindable(event="propertyChange")] 
-    public function get schema() : String    
-    {
-            return _internal_schema;
-    }    
-	[Bindable(event="propertyChange")] 
     public function get connectionFactory() : valueObjects.ConnectionFactory    
     {
             return _internal_connectionFactory;
@@ -146,11 +124,6 @@ public class _Super_DataBase extends flash.events.EventDispatcher implements com
     public function get columnsProperties() : ArrayCollection    
     {
             return _internal_columnsProperties;
-    }    
-	[Bindable(event="propertyChange")] 
-    public function get baseOrSid() : String    
-    {
-            return _internal_baseOrSid;
     }    
 	[Bindable(event="propertyChange")] 
     public function get colunaOriginal() : String    
@@ -163,52 +136,59 @@ public class _Super_DataBase extends flash.events.EventDispatcher implements com
             return _internal_column;
     }    
 	[Bindable(event="propertyChange")] 
+    public function get nameDatabase() : String    
+    {
+            return _internal_nameDatabase;
+    }    
+	[Bindable(event="propertyChange")] 
+    public function get port() : int    
+    {
+            return _internal_port;
+    }    
+	[Bindable(event="propertyChange")] 
+    public function get schema() : String    
+    {
+            return _internal_schema;
+    }    
+	[Bindable(event="propertyChange")] 
+    public function get db() : int    
+    {
+            return _internal_db;
+    }    
+	[Bindable(event="propertyChange")] 
+    public function get host() : String    
+    {
+            return _internal_host;
+    }    
+	[Bindable(event="propertyChange")] 
+    public function get baseOrSid() : String    
+    {
+            return _internal_baseOrSid;
+    }    
+	[Bindable(event="propertyChange")] 
+    public function get driver() : String    
+    {
+            return _internal_driver;
+    }    
+	[Bindable(event="propertyChange")] 
     public function get user() : String    
     {
             return _internal_user;
+    }    
+	[Bindable(event="propertyChange")] 
+    public function get password() : String    
+    {
+            return _internal_password;
+    }    
+	[Bindable(event="propertyChange")] 
+    public function get url() : String    
+    {
+            return _internal_url;
     }    
 
     /**
      * data property setters
      */      
-    public function set port(value:String) : void 
-    {    	
-        var recalcValid:Boolean = false;
-    	if (value == null || _internal_port == null)
-    	{
-    		recalcValid = true;
-    	}	
-    	
-    	
-    	var oldValue:String = _internal_port;               
-        if (oldValue !== value)
-        {
-            _internal_port = value;
-        	this.dispatchEvent(mx.events.PropertyChangeEvent.createUpdateEvent(this, "port", oldValue, _internal_port));
-        }    	     
-        
-        if (recalcValid && model_internal::_cacheInitialized_isValid)
-        {
-            model_internal::isValid_der = model_internal::calculateIsValid();
-        }  
-    }    
-    public function set db(value:int) : void 
-    {    	
-        var recalcValid:Boolean = false;
-    	
-    	
-    	var oldValue:int = _internal_db;               
-        if (oldValue !== value)
-        {
-            _internal_db = value;
-        	this.dispatchEvent(mx.events.PropertyChangeEvent.createUpdateEvent(this, "db", oldValue, _internal_db));
-        }    	     
-        
-        if (recalcValid && model_internal::_cacheInitialized_isValid)
-        {
-            model_internal::isValid_der = model_internal::calculateIsValid();
-        }  
-    }    
     public function set tableItems(value:Object) : void 
     {    	
         var recalcValid:Boolean = false;
@@ -283,69 +263,6 @@ public class _Super_DataBase extends flash.events.EventDispatcher implements com
             model_internal::isValid_der = model_internal::calculateIsValid();
         }  
     }    
-    public function set password(value:String) : void 
-    {    	
-        var recalcValid:Boolean = false;
-    	if (value == null || _internal_password == null)
-    	{
-    		recalcValid = true;
-    	}	
-    	
-    	
-    	var oldValue:String = _internal_password;               
-        if (oldValue !== value)
-        {
-            _internal_password = value;
-        	this.dispatchEvent(mx.events.PropertyChangeEvent.createUpdateEvent(this, "password", oldValue, _internal_password));
-        }    	     
-        
-        if (recalcValid && model_internal::_cacheInitialized_isValid)
-        {
-            model_internal::isValid_der = model_internal::calculateIsValid();
-        }  
-    }    
-    public function set url(value:String) : void 
-    {    	
-        var recalcValid:Boolean = false;
-    	if (value == null || _internal_url == null)
-    	{
-    		recalcValid = true;
-    	}	
-    	
-    	
-    	var oldValue:String = _internal_url;               
-        if (oldValue !== value)
-        {
-            _internal_url = value;
-        	this.dispatchEvent(mx.events.PropertyChangeEvent.createUpdateEvent(this, "url", oldValue, _internal_url));
-        }    	     
-        
-        if (recalcValid && model_internal::_cacheInitialized_isValid)
-        {
-            model_internal::isValid_der = model_internal::calculateIsValid();
-        }  
-    }    
-    public function set schema(value:String) : void 
-    {    	
-        var recalcValid:Boolean = false;
-    	if (value == null || _internal_schema == null)
-    	{
-    		recalcValid = true;
-    	}	
-    	
-    	
-    	var oldValue:String = _internal_schema;               
-        if (oldValue !== value)
-        {
-            _internal_schema = value;
-        	this.dispatchEvent(mx.events.PropertyChangeEvent.createUpdateEvent(this, "schema", oldValue, _internal_schema));
-        }    	     
-        
-        if (recalcValid && model_internal::_cacheInitialized_isValid)
-        {
-            model_internal::isValid_der = model_internal::calculateIsValid();
-        }  
-    }    
     public function set connectionFactory(value:valueObjects.ConnectionFactory) : void 
     {    	
         var recalcValid:Boolean = false;
@@ -399,27 +316,6 @@ public class _Super_DataBase extends flash.events.EventDispatcher implements com
             model_internal::isValid_der = model_internal::calculateIsValid();
         }  
     }    
-    public function set baseOrSid(value:String) : void 
-    {    	
-        var recalcValid:Boolean = false;
-    	if (value == null || _internal_baseOrSid == null)
-    	{
-    		recalcValid = true;
-    	}	
-    	
-    	
-    	var oldValue:String = _internal_baseOrSid;               
-        if (oldValue !== value)
-        {
-            _internal_baseOrSid = value;
-        	this.dispatchEvent(mx.events.PropertyChangeEvent.createUpdateEvent(this, "baseOrSid", oldValue, _internal_baseOrSid));
-        }    	     
-        
-        if (recalcValid && model_internal::_cacheInitialized_isValid)
-        {
-            model_internal::isValid_der = model_internal::calculateIsValid();
-        }  
-    }    
     public function set colunaOriginal(value:String) : void 
     {    	
         var recalcValid:Boolean = false;
@@ -462,6 +358,145 @@ public class _Super_DataBase extends flash.events.EventDispatcher implements com
             model_internal::isValid_der = model_internal::calculateIsValid();
         }  
     }    
+    public function set nameDatabase(value:String) : void 
+    {    	
+        var recalcValid:Boolean = false;
+    	if (value == null || _internal_nameDatabase == null)
+    	{
+    		recalcValid = true;
+    	}	
+    	
+    	
+    	var oldValue:String = _internal_nameDatabase;               
+        if (oldValue !== value)
+        {
+            _internal_nameDatabase = value;
+        	this.dispatchEvent(mx.events.PropertyChangeEvent.createUpdateEvent(this, "nameDatabase", oldValue, _internal_nameDatabase));
+        }    	     
+        
+        if (recalcValid && model_internal::_cacheInitialized_isValid)
+        {
+            model_internal::isValid_der = model_internal::calculateIsValid();
+        }  
+    }    
+    public function set port(value:int) : void 
+    {    	
+        var recalcValid:Boolean = false;
+    	
+    	
+    	var oldValue:int = _internal_port;               
+        if (oldValue !== value)
+        {
+            _internal_port = value;
+        	this.dispatchEvent(mx.events.PropertyChangeEvent.createUpdateEvent(this, "port", oldValue, _internal_port));
+        }    	     
+        
+        if (recalcValid && model_internal::_cacheInitialized_isValid)
+        {
+            model_internal::isValid_der = model_internal::calculateIsValid();
+        }  
+    }    
+    public function set schema(value:String) : void 
+    {    	
+        var recalcValid:Boolean = false;
+    	if (value == null || _internal_schema == null)
+    	{
+    		recalcValid = true;
+    	}	
+    	
+    	
+    	var oldValue:String = _internal_schema;               
+        if (oldValue !== value)
+        {
+            _internal_schema = value;
+        	this.dispatchEvent(mx.events.PropertyChangeEvent.createUpdateEvent(this, "schema", oldValue, _internal_schema));
+        }    	     
+        
+        if (recalcValid && model_internal::_cacheInitialized_isValid)
+        {
+            model_internal::isValid_der = model_internal::calculateIsValid();
+        }  
+    }    
+    public function set db(value:int) : void 
+    {    	
+        var recalcValid:Boolean = false;
+    	
+    	
+    	var oldValue:int = _internal_db;               
+        if (oldValue !== value)
+        {
+            _internal_db = value;
+        	this.dispatchEvent(mx.events.PropertyChangeEvent.createUpdateEvent(this, "db", oldValue, _internal_db));
+        }    	     
+        
+        if (recalcValid && model_internal::_cacheInitialized_isValid)
+        {
+            model_internal::isValid_der = model_internal::calculateIsValid();
+        }  
+    }    
+    public function set host(value:String) : void 
+    {    	
+        var recalcValid:Boolean = false;
+    	if (value == null || _internal_host == null)
+    	{
+    		recalcValid = true;
+    	}	
+    	
+    	
+    	var oldValue:String = _internal_host;               
+        if (oldValue !== value)
+        {
+            _internal_host = value;
+        	this.dispatchEvent(mx.events.PropertyChangeEvent.createUpdateEvent(this, "host", oldValue, _internal_host));
+        }    	     
+        
+        if (recalcValid && model_internal::_cacheInitialized_isValid)
+        {
+            model_internal::isValid_der = model_internal::calculateIsValid();
+        }  
+    }    
+    public function set baseOrSid(value:String) : void 
+    {    	
+        var recalcValid:Boolean = false;
+    	if (value == null || _internal_baseOrSid == null)
+    	{
+    		recalcValid = true;
+    	}	
+    	
+    	
+    	var oldValue:String = _internal_baseOrSid;               
+        if (oldValue !== value)
+        {
+            _internal_baseOrSid = value;
+        	this.dispatchEvent(mx.events.PropertyChangeEvent.createUpdateEvent(this, "baseOrSid", oldValue, _internal_baseOrSid));
+        }    	     
+        
+        if (recalcValid && model_internal::_cacheInitialized_isValid)
+        {
+            model_internal::isValid_der = model_internal::calculateIsValid();
+        }  
+    }    
+    public function set driver(value:String) : void 
+    {    	
+        var recalcValid:Boolean = false;
+    	if (value == null || _internal_driver == null)
+    	{
+    		recalcValid = true;
+    	}	
+    	
+    	
+    	var oldValue:String = _internal_driver;               
+        if (oldValue !== value)
+        {
+            _internal_driver = value;
+        	this.dispatchEvent(mx.events.PropertyChangeEvent.createUpdateEvent(this, "driver", oldValue, _internal_driver));
+        }    	     
+        
+        if (recalcValid && model_internal::_cacheInitialized_isValid)
+        {
+            model_internal::isValid_der = model_internal::calculateIsValid();
+        }  
+    }    
     public function set user(value:String) : void 
     {    	
         var recalcValid:Boolean = false;
@@ -476,6 +511,48 @@ public class _Super_DataBase extends flash.events.EventDispatcher implements com
         {
             _internal_user = value;
         	this.dispatchEvent(mx.events.PropertyChangeEvent.createUpdateEvent(this, "user", oldValue, _internal_user));
+        }    	     
+        
+        if (recalcValid && model_internal::_cacheInitialized_isValid)
+        {
+            model_internal::isValid_der = model_internal::calculateIsValid();
+        }  
+    }    
+    public function set password(value:String) : void 
+    {    	
+        var recalcValid:Boolean = false;
+    	if (value == null || _internal_password == null)
+    	{
+    		recalcValid = true;
+    	}	
+    	
+    	
+    	var oldValue:String = _internal_password;               
+        if (oldValue !== value)
+        {
+            _internal_password = value;
+        	this.dispatchEvent(mx.events.PropertyChangeEvent.createUpdateEvent(this, "password", oldValue, _internal_password));
+        }    	     
+        
+        if (recalcValid && model_internal::_cacheInitialized_isValid)
+        {
+            model_internal::isValid_der = model_internal::calculateIsValid();
+        }  
+    }    
+    public function set url(value:String) : void 
+    {    	
+        var recalcValid:Boolean = false;
+    	if (value == null || _internal_url == null)
+    	{
+    		recalcValid = true;
+    	}	
+    	
+    	
+    	var oldValue:String = _internal_url;               
+        if (oldValue !== value)
+        {
+            _internal_url = value;
+        	this.dispatchEvent(mx.events.PropertyChangeEvent.createUpdateEvent(this, "url", oldValue, _internal_url));
         }    	     
         
         if (recalcValid && model_internal::_cacheInitialized_isValid)
@@ -515,11 +592,6 @@ public class _Super_DataBase extends flash.events.EventDispatcher implements com
         var violatedConsts:Array = new Array();    
         var validationFailureMessages:Array = new Array();    
 
-		if (_model.isPortAvailable && _internal_port == null)
-		{
-			violatedConsts.push("portIsRequired");
-			validationFailureMessages.push("port is required");
-		}
 		if (_model.isTableItemsAvailable && _internal_tableItems == null)
 		{
 			violatedConsts.push("tableItemsIsRequired");
@@ -535,21 +607,6 @@ public class _Super_DataBase extends flash.events.EventDispatcher implements com
 			violatedConsts.push("columnPropertiesIsRequired");
 			validationFailureMessages.push("columnProperties is required");
 		}
-		if (_model.isPasswordAvailable && _internal_password == null)
-		{
-			violatedConsts.push("passwordIsRequired");
-			validationFailureMessages.push("password is required");
-		}
-		if (_model.isUrlAvailable && _internal_url == null)
-		{
-			violatedConsts.push("urlIsRequired");
-			validationFailureMessages.push("url is required");
-		}
-		if (_model.isSchemaAvailable && _internal_schema == null)
-		{
-			violatedConsts.push("schemaIsRequired");
-			validationFailureMessages.push("schema is required");
-		}
 		if (_model.isConnectionFactoryAvailable && _internal_connectionFactory == null)
 		{
 			violatedConsts.push("connectionFactoryIsRequired");
@@ -559,11 +616,6 @@ public class _Super_DataBase extends flash.events.EventDispatcher implements com
 		{
 			violatedConsts.push("columnsPropertiesIsRequired");
 			validationFailureMessages.push("columnsProperties is required");
-		}
-		if (_model.isBaseOrSidAvailable && _internal_baseOrSid == null)
-		{
-			violatedConsts.push("baseOrSidIsRequired");
-			validationFailureMessages.push("baseOrSid is required");
 		}
 		if (_model.isColunaOriginalAvailable && _internal_colunaOriginal == null)
 		{
@@ -575,13 +627,51 @@ public class _Super_DataBase extends flash.events.EventDispatcher implements com
 			violatedConsts.push("columnIsRequired");
 			validationFailureMessages.push("column is required");
 		}
+		if (_model.isNameDatabaseAvailable && _internal_nameDatabase == null)
+		{
+			violatedConsts.push("nameDatabaseIsRequired");
+			validationFailureMessages.push("nameDatabase is required");
+		}
+		if (_model.isSchemaAvailable && _internal_schema == null)
+		{
+			violatedConsts.push("schemaIsRequired");
+			validationFailureMessages.push("schema is required");
+		}
+		if (_model.isHostAvailable && _internal_host == null)
+		{
+			violatedConsts.push("hostIsRequired");
+			validationFailureMessages.push("host is required");
+		}
+		if (_model.isBaseOrSidAvailable && _internal_baseOrSid == null)
+		{
+			violatedConsts.push("baseOrSidIsRequired");
+			validationFailureMessages.push("baseOrSid is required");
+		}
+		if (_model.isDriverAvailable && _internal_driver == null)
+		{
+			violatedConsts.push("driverIsRequired");
+			validationFailureMessages.push("driver is required");
+		}
 		if (_model.isUserAvailable && _internal_user == null)
 		{
 			violatedConsts.push("userIsRequired");
 			validationFailureMessages.push("user is required");
 		}
+		if (_model.isPasswordAvailable && _internal_password == null)
+		{
+			violatedConsts.push("passwordIsRequired");
+			validationFailureMessages.push("password is required");
+		}
+		if (_model.isUrlAvailable && _internal_url == null)
+		{
+			violatedConsts.push("urlIsRequired");
+			validationFailureMessages.push("url is required");
+		}
 
 		var styleValidity:Boolean = true;
+	
+	
+	
 	
 	
 	

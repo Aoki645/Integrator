@@ -21,12 +21,12 @@ internal class _DataBaseEntityMetadata extends com.adobe.fiber.valueobjects.Abst
 {
 	private static var emptyArray:Array = new Array();
 
-    model_internal static var allProperties:Array = new Array("port", "db", "tableItems", "table", "columnProperties", "password", "url", "schema", "connectionFactory", "columnsProperties", "baseOrSid", "colunaOriginal", "column", "user");
+    model_internal static var allProperties:Array = new Array("tableItems", "table", "columnProperties", "connectionFactory", "columnsProperties", "colunaOriginal", "column", "nameDatabase", "port", "schema", "db", "host", "baseOrSid", "driver", "user", "password", "url");
     model_internal static var allAssociationProperties:Array = new Array();
-    model_internal static var allRequiredProperties:Array = new Array("port", "db", "tableItems", "table", "columnProperties", "password", "url", "schema", "connectionFactory", "columnsProperties", "baseOrSid", "colunaOriginal", "column", "user");
-    model_internal static var allAlwaysAvailableProperties:Array = new Array("port", "db", "tableItems", "table", "columnProperties", "password", "url", "schema", "connectionFactory", "columnsProperties", "baseOrSid", "colunaOriginal", "column", "user");
+    model_internal static var allRequiredProperties:Array = new Array("tableItems", "table", "columnProperties", "connectionFactory", "columnsProperties", "colunaOriginal", "column", "nameDatabase", "port", "schema", "db", "host", "baseOrSid", "driver", "user", "password", "url");
+    model_internal static var allAlwaysAvailableProperties:Array = new Array("tableItems", "table", "columnProperties", "connectionFactory", "columnsProperties", "colunaOriginal", "column", "nameDatabase", "port", "schema", "db", "host", "baseOrSid", "driver", "user", "password", "url");
     model_internal static var guardedProperties:Array = new Array();
-    model_internal static var dataProperties:Array = new Array("port", "db", "tableItems", "table", "columnProperties", "password", "url", "schema", "connectionFactory", "columnsProperties", "baseOrSid", "colunaOriginal", "column", "user");
+    model_internal static var dataProperties:Array = new Array("tableItems", "table", "columnProperties", "connectionFactory", "columnsProperties", "colunaOriginal", "column", "nameDatabase", "port", "schema", "db", "host", "baseOrSid", "driver", "user", "password", "url");
     model_internal static var derivedProperties:Array = new Array();
     model_internal static var collectionProperties:Array = new Array("columnProperties", "columnsProperties");
     model_internal static var collectionBaseMap:Object;    
@@ -45,20 +45,23 @@ internal class _DataBaseEntityMetadata extends com.adobe.fiber.valueobjects.Abst
         {
             // depenents map
             model_internal::dependentsOnMap = new Object();
-            model_internal::dependentsOnMap["port"] = new Array();
-            model_internal::dependentsOnMap["db"] = new Array();
             model_internal::dependentsOnMap["tableItems"] = new Array();
             model_internal::dependentsOnMap["table"] = new Array();
             model_internal::dependentsOnMap["columnProperties"] = new Array();
-            model_internal::dependentsOnMap["password"] = new Array();
-            model_internal::dependentsOnMap["url"] = new Array();
-            model_internal::dependentsOnMap["schema"] = new Array();
             model_internal::dependentsOnMap["connectionFactory"] = new Array();
             model_internal::dependentsOnMap["columnsProperties"] = new Array();
-            model_internal::dependentsOnMap["baseOrSid"] = new Array();
             model_internal::dependentsOnMap["colunaOriginal"] = new Array();
             model_internal::dependentsOnMap["column"] = new Array();
+            model_internal::dependentsOnMap["nameDatabase"] = new Array();
+            model_internal::dependentsOnMap["port"] = new Array();
+            model_internal::dependentsOnMap["schema"] = new Array();
+            model_internal::dependentsOnMap["db"] = new Array();
+            model_internal::dependentsOnMap["host"] = new Array();
+            model_internal::dependentsOnMap["baseOrSid"] = new Array();
+            model_internal::dependentsOnMap["driver"] = new Array();
             model_internal::dependentsOnMap["user"] = new Array();
+            model_internal::dependentsOnMap["password"] = new Array();
+            model_internal::dependentsOnMap["url"] = new Array();
                         
             // collection base map
             model_internal::collectionBaseMap = new Object()
@@ -278,18 +281,6 @@ internal class _DataBaseEntityMetadata extends com.adobe.fiber.valueobjects.Abst
     }       
      
      [Bindable(event="propertyChange")] 
-     public function get isPortAvailable():Boolean
-     {
-        return true;
-     }                       
-                  
-     [Bindable(event="propertyChange")] 
-     public function get isDbAvailable():Boolean
-     {
-        return true;
-     }                       
-                  
-     [Bindable(event="propertyChange")] 
      public function get isTableItemsAvailable():Boolean
      {
         return true;
@@ -308,24 +299,6 @@ internal class _DataBaseEntityMetadata extends com.adobe.fiber.valueobjects.Abst
      }                       
                   
      [Bindable(event="propertyChange")] 
-     public function get isPasswordAvailable():Boolean
-     {
-        return true;
-     }                       
-                  
-     [Bindable(event="propertyChange")] 
-     public function get isUrlAvailable():Boolean
-     {
-        return true;
-     }                       
-                  
-     [Bindable(event="propertyChange")] 
-     public function get isSchemaAvailable():Boolean
-     {
-        return true;
-     }                       
-                  
-     [Bindable(event="propertyChange")] 
      public function get isConnectionFactoryAvailable():Boolean
      {
         return true;
@@ -333,12 +306,6 @@ internal class _DataBaseEntityMetadata extends com.adobe.fiber.valueobjects.Abst
                   
      [Bindable(event="propertyChange")] 
      public function get isColumnsPropertiesAvailable():Boolean
-     {
-        return true;
-     }                       
-                  
-     [Bindable(event="propertyChange")] 
-     public function get isBaseOrSidAvailable():Boolean
      {
         return true;
      }                       
@@ -356,7 +323,61 @@ internal class _DataBaseEntityMetadata extends com.adobe.fiber.valueobjects.Abst
      }                       
                   
      [Bindable(event="propertyChange")] 
+     public function get isNameDatabaseAvailable():Boolean
+     {
+        return true;
+     }                       
+                  
+     [Bindable(event="propertyChange")] 
+     public function get isPortAvailable():Boolean
+     {
+        return true;
+     }                       
+                  
+     [Bindable(event="propertyChange")] 
+     public function get isSchemaAvailable():Boolean
+     {
+        return true;
+     }                       
+                  
+     [Bindable(event="propertyChange")] 
+     public function get isDbAvailable():Boolean
+     {
+        return true;
+     }                       
+                  
+     [Bindable(event="propertyChange")] 
+     public function get isHostAvailable():Boolean
+     {
+        return true;
+     }                       
+                  
+     [Bindable(event="propertyChange")] 
+     public function get isBaseOrSidAvailable():Boolean
+     {
+        return true;
+     }                       
+                  
+     [Bindable(event="propertyChange")] 
+     public function get isDriverAvailable():Boolean
+     {
+        return true;
+     }                       
+                  
+     [Bindable(event="propertyChange")] 
      public function get isUserAvailable():Boolean
+     {
+        return true;
+     }                       
+                  
+     [Bindable(event="propertyChange")] 
+     public function get isPasswordAvailable():Boolean
+     {
+        return true;
+     }                       
+                  
+     [Bindable(event="propertyChange")] 
+     public function get isUrlAvailable():Boolean
      {
         return true;
      }                       
@@ -371,18 +392,6 @@ internal class _DataBaseEntityMetadata extends com.adobe.fiber.valueobjects.Abst
      	this.dispatchEvent(mx.events.PropertyChangeEvent.createUpdateEvent(this, propertyName, oldValue, newValue));
      }
 
-    [Bindable(event="propertyChange")]   
-    public function get portStyle():com.adobe.fiber.styles.Style
-    {
-		return model_internal::_nullStyle;		
-    }      
-    
-    [Bindable(event="propertyChange")]   
-    public function get dbStyle():com.adobe.fiber.styles.Style
-    {
-		return model_internal::_nullStyle;		
-    }      
-    
     [Bindable(event="propertyChange")]   
     public function get tableItemsStyle():com.adobe.fiber.styles.Style
     {
@@ -402,24 +411,6 @@ internal class _DataBaseEntityMetadata extends com.adobe.fiber.valueobjects.Abst
     }      
     
     [Bindable(event="propertyChange")]   
-    public function get passwordStyle():com.adobe.fiber.styles.Style
-    {
-		return model_internal::_nullStyle;		
-    }      
-    
-    [Bindable(event="propertyChange")]   
-    public function get urlStyle():com.adobe.fiber.styles.Style
-    {
-		return model_internal::_nullStyle;		
-    }      
-    
-    [Bindable(event="propertyChange")]   
-    public function get schemaStyle():com.adobe.fiber.styles.Style
-    {
-		return model_internal::_nullStyle;		
-    }      
-    
-    [Bindable(event="propertyChange")]   
     public function get connectionFactoryStyle():com.adobe.fiber.styles.Style
     {
 		return model_internal::_nullStyle;		
@@ -427,12 +418,6 @@ internal class _DataBaseEntityMetadata extends com.adobe.fiber.valueobjects.Abst
     
     [Bindable(event="propertyChange")]   
     public function get columnsPropertiesStyle():com.adobe.fiber.styles.Style
-    {
-		return model_internal::_nullStyle;		
-    }      
-    
-    [Bindable(event="propertyChange")]   
-    public function get baseOrSidStyle():com.adobe.fiber.styles.Style
     {
 		return model_internal::_nullStyle;		
     }      
@@ -450,7 +435,61 @@ internal class _DataBaseEntityMetadata extends com.adobe.fiber.valueobjects.Abst
     }      
     
     [Bindable(event="propertyChange")]   
+    public function get nameDatabaseStyle():com.adobe.fiber.styles.Style
+    {
+		return model_internal::_nullStyle;		
+    }      
+    
+    [Bindable(event="propertyChange")]   
+    public function get portStyle():com.adobe.fiber.styles.Style
+    {
+		return model_internal::_nullStyle;		
+    }      
+    
+    [Bindable(event="propertyChange")]   
+    public function get schemaStyle():com.adobe.fiber.styles.Style
+    {
+		return model_internal::_nullStyle;		
+    }      
+    
+    [Bindable(event="propertyChange")]   
+    public function get dbStyle():com.adobe.fiber.styles.Style
+    {
+		return model_internal::_nullStyle;		
+    }      
+    
+    [Bindable(event="propertyChange")]   
+    public function get hostStyle():com.adobe.fiber.styles.Style
+    {
+		return model_internal::_nullStyle;		
+    }      
+    
+    [Bindable(event="propertyChange")]   
+    public function get baseOrSidStyle():com.adobe.fiber.styles.Style
+    {
+		return model_internal::_nullStyle;		
+    }      
+    
+    [Bindable(event="propertyChange")]   
+    public function get driverStyle():com.adobe.fiber.styles.Style
+    {
+		return model_internal::_nullStyle;		
+    }      
+    
+    [Bindable(event="propertyChange")]   
     public function get userStyle():com.adobe.fiber.styles.Style
+    {
+		return model_internal::_nullStyle;		
+    }      
+    
+    [Bindable(event="propertyChange")]   
+    public function get passwordStyle():com.adobe.fiber.styles.Style
+    {
+		return model_internal::_nullStyle;		
+    }      
+    
+    [Bindable(event="propertyChange")]   
+    public function get urlStyle():com.adobe.fiber.styles.Style
     {
 		return model_internal::_nullStyle;		
     }      

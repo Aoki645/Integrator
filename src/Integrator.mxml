@@ -14,20 +14,21 @@
 			
 			import skins.AppSkin;
 			
-			import views.DBSelector;
+			import views.DbSelectorCreator;
+			import views.PnMigDbxDb;
 			protected function linkbutton1_clickHandler(event:MouseEvent):void
 			{
-				var pnDb:DBSelector = null;
-				pnDb = PopUpManager.createPopUp(this, views.DBSelector,true) as DBSelector;
+				var pnDb:PnMigDbxDb = null;
+				pnDb = PopUpManager.createPopUp(this, views.PnMigDbxDb,true) as PnMigDbxDb;
 				PopUpManager.centerPopUp(pnDb);
 			}
 			protected function itemMenu_clickHandler(event:MenuEvent):void
 			{
-				Alert.show(""+event.index)
-/* 				var pnDb:DBSelector = null;
-				pnDb = PopUpManager.createPopUp(this, views.DBSelector,true) as DBSelector;
+				Alert.show(""+event.label)
+ 				var pnDb:DbSelectorCreator = null;
+				pnDb = PopUpManager.createPopUp(this, views.DbSelectorCreator,true) as DbSelectorCreator;
 				PopUpManager.centerPopUp(pnDb);
- */			}
+ 			}
 
 		]]>
 	</fx:Script>
@@ -51,6 +52,5 @@
 	<mx:LinkButton visible="false" x="98" y="98" label="InterDb" width="62" height="22" color="#FF8A01" click="linkbutton1_clickHandler(event)"/>
 	<mx:MenuBar width="100%" labelField="@label" height="25" horizontalCenter="0" top="10" cornerRadius="5"
 				itemClick="itemMenu_clickHandler(event)" dataProvider="{xmlMenu}" />
-	<s:Button x="79" y="115" label="Button"/>
 
 </s:Application>

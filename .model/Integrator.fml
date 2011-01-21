@@ -38,6 +38,17 @@
         <item name="returnType">ColumnProperties</item>
       </annotation>
     </function>
+    <function name="listaBancos" return-type="DataBase[]">
+      <annotation name="analyze group">
+        <item name="analyzed">true</item>
+      </annotation>
+      <annotation name="original signature">
+        <item name="returnType">DataBase</item>
+      </annotation>
+      <annotation name="ValidProperties">
+        <item name="propertySpecifier">nameDatabase,port,schema,db,host,baseOrSid,driver,user,password,url</item>
+      </annotation>
+    </function>
   </service>
   <entity name="DataBase">
     <annotation name="EntityProperties">
@@ -52,20 +63,26 @@
     <annotation name="ActionScriptGeneration">
       <item name="Package">valueObjects</item>
     </annotation>
-    <property name="port" type="string" required="true"/>
-    <property name="db" type="integer" required="true"/>
+    <annotation name="listaBancos">
+      <item name="propertySpecifier">nameDatabase,port,schema,db,host,baseOrSid,driver,user,password,url</item>
+    </annotation>
     <property name="tableItems" type="opaque" required="true"/>
     <property name="table" type="string" required="true"/>
     <property name="columnProperties" type="ColumnProperties[]" required="true"/>
-    <property name="password" type="string" required="true"/>
-    <property name="url" type="string" required="true"/>
-    <property name="schema" type="string" required="true"/>
     <property name="connectionFactory" type="ConnectionFactory" required="true"/>
     <property name="columnsProperties" type="ColumnProperties[]" required="true"/>
-    <property name="baseOrSid" type="string" required="true"/>
     <property name="colunaOriginal" type="string" required="true"/>
     <property name="column" type="string" required="true"/>
+    <property name="nameDatabase" type="string" required="true"/>
+    <property name="port" type="integer" required="true"/>
+    <property name="schema" type="string" required="true"/>
+    <property name="db" type="integer" required="true"/>
+    <property name="host" type="string" required="true"/>
+    <property name="baseOrSid" type="string" required="true"/>
+    <property name="driver" type="string" required="true"/>
     <property name="user" type="string" required="true"/>
+    <property name="password" type="string" required="true"/>
+    <property name="url" type="string" required="true"/>
   </entity>
   <entity name="ResultSet">
     <annotation name="EntityProperties">
@@ -96,34 +113,20 @@
     <property name="first" type="boolean" required="true"/>
     <property name="metaData" type="ResultSetMetaData" required="true"/>
   </entity>
-  <entity name="Statement">
+  <entity name="ConnectionFactory">
     <annotation name="EntityProperties">
-      <item name="EntityOriginalName">Statement</item>
+      <item name="EntityOriginalName">ConnectionFactory</item>
     </annotation>
     <annotation name="ServerProperties">
-      <item name="RemoteClass">java.sql.Statement</item>
+      <item name="RemoteClass">integrator.mig.connect.ConnectionFactory</item>
     </annotation>
     <annotation name="service Group">
-      <item name="service">Databases,Dummy</item>
+      <item name="service">Databases</item>
     </annotation>
     <annotation name="ActionScriptGeneration">
       <item name="Package">valueObjects</item>
     </annotation>
-    <property name="fetchSize" type="integer" required="true"/>
-    <property name="connection" type="Connection" required="true"/>
-    <property name="resultSetHoldability" type="integer" required="true"/>
-    <property name="queryTimeout" type="integer" required="true"/>
-    <property name="resultSetType" type="integer" required="true"/>
-    <property name="resultSetConcurrency" type="integer" required="true"/>
-    <property name="fetchDirection" type="integer" required="true"/>
-    <property name="maxFieldSize" type="integer" required="true"/>
-    <property name="poolable" type="boolean" required="true"/>
-    <property name="maxRows" type="integer" required="true"/>
-    <property name="closed" type="boolean" required="true"/>
-    <property name="resultSet" type="ResultSet" required="true"/>
-    <property name="updateCount" type="integer" required="true"/>
-    <property name="warnings" type="SQLWarning" required="true"/>
-    <property name="generatedKeys" type="ResultSet" required="true"/>
+    <property name="connection" type="Connection"/>
   </entity>
   <entity name="DatabaseMetaData">
     <annotation name="EntityProperties">
@@ -195,20 +198,34 @@
     <property name="catalogs" type="ResultSet" required="true"/>
     <property name="maxColumnsInTable" type="integer" required="true"/>
   </entity>
-  <entity name="ConnectionFactory">
+  <entity name="Statement">
     <annotation name="EntityProperties">
-      <item name="EntityOriginalName">ConnectionFactory</item>
+      <item name="EntityOriginalName">Statement</item>
     </annotation>
     <annotation name="ServerProperties">
-      <item name="RemoteClass">integrator.mig.connect.ConnectionFactory</item>
+      <item name="RemoteClass">java.sql.Statement</item>
     </annotation>
     <annotation name="service Group">
-      <item name="service">Databases</item>
+      <item name="service">Databases,Dummy</item>
     </annotation>
     <annotation name="ActionScriptGeneration">
       <item name="Package">valueObjects</item>
     </annotation>
-    <property name="connection" type="Connection"/>
+    <property name="fetchSize" type="integer" required="true"/>
+    <property name="connection" type="Connection" required="true"/>
+    <property name="resultSetHoldability" type="integer" required="true"/>
+    <property name="queryTimeout" type="integer" required="true"/>
+    <property name="resultSetType" type="integer" required="true"/>
+    <property name="resultSetConcurrency" type="integer" required="true"/>
+    <property name="fetchDirection" type="integer" required="true"/>
+    <property name="maxFieldSize" type="integer" required="true"/>
+    <property name="poolable" type="boolean" required="true"/>
+    <property name="maxRows" type="integer" required="true"/>
+    <property name="closed" type="boolean" required="true"/>
+    <property name="resultSet" type="ResultSet" required="true"/>
+    <property name="updateCount" type="integer" required="true"/>
+    <property name="warnings" type="SQLWarning" required="true"/>
+    <property name="generatedKeys" type="ResultSet" required="true"/>
   </entity>
   <entity name="SQLException">
     <annotation name="EntityProperties">
@@ -230,21 +247,6 @@
     <property name="errorCode" type="integer"/>
     <property name="nextException" type="SQLException"/>
     <property name="stackTrace" type="StackTraceElement[]"/>
-  </entity>
-  <entity name="ResultSetMetaData">
-    <annotation name="EntityProperties">
-      <item name="EntityOriginalName">ResultSetMetaData</item>
-    </annotation>
-    <annotation name="ServerProperties">
-      <item name="RemoteClass">java.sql.ResultSetMetaData</item>
-    </annotation>
-    <annotation name="service Group">
-      <item name="service">Databases</item>
-    </annotation>
-    <annotation name="ActionScriptGeneration">
-      <item name="Package">valueObjects</item>
-    </annotation>
-    <property name="columnCount" type="integer"/>
   </entity>
   <entity name="SQLWarning">
     <annotation name="EntityProperties">
@@ -268,12 +270,12 @@
     <property name="nextException" type="SQLException" required="true"/>
     <property name="stackTrace" type="StackTraceElement[]" required="true"/>
   </entity>
-  <entity name="Throwable">
+  <entity name="ResultSetMetaData">
     <annotation name="EntityProperties">
-      <item name="EntityOriginalName">Throwable</item>
+      <item name="EntityOriginalName">ResultSetMetaData</item>
     </annotation>
     <annotation name="ServerProperties">
-      <item name="RemoteClass">java.lang.Throwable</item>
+      <item name="RemoteClass">java.sql.ResultSetMetaData</item>
     </annotation>
     <annotation name="service Group">
       <item name="service">Databases</item>
@@ -281,10 +283,7 @@
     <annotation name="ActionScriptGeneration">
       <item name="Package">valueObjects</item>
     </annotation>
-    <property name="message" type="string"/>
-    <property name="localizedMessage" type="string"/>
-    <property name="cause" type="Throwable"/>
-    <property name="stackTrace" type="StackTraceElement[]"/>
+    <property name="columnCount" type="integer"/>
   </entity>
   <entity name="Connection">
     <annotation name="EntityProperties">
@@ -309,6 +308,24 @@
     <property name="clientInfo" type="opaque" required="true"/>
     <property name="warnings" type="SQLWarning" required="true"/>
     <property name="metaData" type="DatabaseMetaData" required="true"/>
+  </entity>
+  <entity name="Throwable">
+    <annotation name="EntityProperties">
+      <item name="EntityOriginalName">Throwable</item>
+    </annotation>
+    <annotation name="ServerProperties">
+      <item name="RemoteClass">java.lang.Throwable</item>
+    </annotation>
+    <annotation name="service Group">
+      <item name="service">Databases</item>
+    </annotation>
+    <annotation name="ActionScriptGeneration">
+      <item name="Package">valueObjects</item>
+    </annotation>
+    <property name="message" type="string"/>
+    <property name="localizedMessage" type="string"/>
+    <property name="cause" type="Throwable"/>
+    <property name="stackTrace" type="StackTraceElement[]"/>
   </entity>
   <entity name="ColumnProperties">
     <annotation name="EntityProperties">
